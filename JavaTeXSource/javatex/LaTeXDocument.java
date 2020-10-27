@@ -55,7 +55,7 @@ public class LaTeXDocument extends LaTeXSnippet {
 		for (LaTeXPackage ltp : dependencies)
 			depends += "\n"+ltp.convert();
 		
-		String startEnv = "\\begin{document}\n";
+		String startEnv = "\\begin{document}";
 		
 		// need to generate body
 		String body = "";
@@ -64,9 +64,9 @@ public class LaTeXDocument extends LaTeXSnippet {
 			body += "\n"+ss.convert();
 		
 		
-		String endEnv = "\n\n\\end{document}\n";
+		String endEnv = "\\end{document}";
 		
-		return String.join("\n", new String[] {docClassStr, depends, startEnv, body, endEnv});
+		return String.join("\n", new String[] {docClassStr.trim(), depends.trim(), startEnv.trim(), body.trim(), endEnv.trim()});
 	}
 
 	enum DocumentClass implements TeX {
