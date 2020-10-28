@@ -2,9 +2,19 @@ package javatex;
 
 import javax.swing.JPanel;
 
+import javatex.envrn.Align;
 import javatex.envrn.Paragraph;
 
 public final class MultiplicationExample extends JTProblemFrame {
+	public static void main(String[]args) {
+		LaTeXDocument docWme = new LaTeXDocument();
+		MultiplicationExample me = new MultiplicationExample(3, 5);
+		
+		docWme.addSnippet(me);
+		
+		
+		System.out.println(docWme.convert());
+	}
 
 	public MultiplicationExample(int a, int b) {
 		super(LaTeXSnippet.SnippetType.MAT);
@@ -69,15 +79,42 @@ public final class MultiplicationExample extends JTProblemFrame {
 				}
 			}
 		}
+		
+		// should ensure a and b are positive for this example.
+		a = Math.abs(a);
+		b = Math.abs(b);
 
-		// explanation
+		clearSnippets();
 
+		// explanation of multiplication problem
 		Paragraph explanation = new Paragraph(
 				"To multiply two numbers, consider the problem as a repeated addition.",
 				"Therefore $a\\times b$ can be thought of as adding $a$ to itself $b$ times.");
 
+		addSnippet(explanation);
+
+		Align math = new Align();
+
+		math.addEquationLine(
+				"a \\times b = a + ... + a \\; (b\\text{ times})");
+
+		int sum = a;
+		b--;
+
+		while (b >= 0) {
+			String eqnLine = "= "+sum;
+			for (int i = 0; i < b; i++)
+				eqnLine += "+"+a;
+			sum += a;
+			b--;
+			math.addEquationLine(eqnLine);
+		}
 		
+		math.setEquationNumbering(false);
+		math.setAlignment(Align.AlignAt.FIRST_EQUALS);
 		
-		return null;
+		addSnippet(math);
+				
+		return String.join("\n\n", new String[] {explanation.convert(), math.convert()});
 	}
 }

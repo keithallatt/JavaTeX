@@ -36,12 +36,36 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 		return subSnippets;
 	}
 
+	/**
+	 * Expected to be overridden for classes requiring specific type subsnippets or
+	 * even specific object types.
+	 * 
+	 * @param snip:
+	 *            the LaTeXSnippet to be added to this one (as a sub piece.
+	 * @return true (as specified by Collection.add)
+	 */
 	public boolean addSnippet(LaTeXSnippet snip) {
 		return subSnippets.add(snip);
 	}
 
 	public boolean removeSnippet(LaTeXSnippet snip) {
 		return subSnippets.remove(snip);
+	}
+	
+	public void clearSnippets() {
+		subSnippets = new ArrayList<LaTeXSnippet>();
+	}
+
+	@Override
+	public LaTeXPackage[] getDependencies() {
+		ArrayList<LaTeXPackage> depends = new ArrayList<LaTeXPackage>();
+
+		for (LaTeXSnippet snip : subSnippets)
+			for (LaTeXPackage ltp : snip.getDependencies())
+				depends.add(ltp);
+		
+
+		return depends.toArray(new LaTeXPackage[] {});
 	}
 
 	/**
@@ -64,7 +88,6 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 	 */
 
 	public enum SnippetType {
-
 		USE, ENV, GEN, DOC, MAT;
 	}
 }

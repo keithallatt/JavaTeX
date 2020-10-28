@@ -33,8 +33,6 @@ public interface TeX {
 	/**
 	 * Get the package dependencies.
 	 * 
-	 * 
-	 * 
 	 * @return the list of dependencies.
 	 */
 	public default LaTeXPackage[] getDependencies() {
