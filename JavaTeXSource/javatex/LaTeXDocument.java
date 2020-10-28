@@ -1,6 +1,9 @@
 package javatex;
 
 import java.util.Set;
+
+import javatex.envrn.Paragraph;
+
 import java.util.HashSet;
 
 /**

@@ -35,34 +35,36 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 	public ArrayList<LaTeXSnippet> getSubSnippets() {
 		return subSnippets;
 	}
-	
+
 	public boolean addSnippet(LaTeXSnippet snip) {
 		return subSnippets.add(snip);
 	}
-	
+
 	public boolean removeSnippet(LaTeXSnippet snip) {
 		return subSnippets.remove(snip);
 	}
 
 	/**
-	 * What kind of snippet is this?
+	 * What kind of snippet is a particular LaTeXSnippet?
+	 * 
+	 * USE: \\usepackage type snippet
+	 * 
+	 * ENV: a defined environment.
+	 * 
+	 * GEN: a generic use case
+	 * 
+	 * DOC: a document container.
+	 * 
+	 * MAT: uses math environment features.
+	 * 
 	 * 
 	 * @author Keith Allatt
 	 * @version 2020-10-25
 	 *
 	 */
+
 	public enum SnippetType {
-		/*
-		 * USE: \\usepackage type snippet
-		 * 
-		 * ENV: a defined environment.
-		 * 
-		 * GEN: a generic use case
-		 * 
-		 * DOC: a document container.
-		 * 
-		 * MAT: uses math environment features. 
-		 */
-		USE, ENV, GEN, DOC;
+
+		USE, ENV, GEN, DOC, MAT;
 	}
 }

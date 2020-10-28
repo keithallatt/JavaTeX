@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import javatex.LaTeXDocument;
 import javatex.LaTeXSnippet;
-import javatex.Paragraph;
+import javatex.envrn.Paragraph;
 
 @SuppressWarnings("static-method")
 class TestLaTeXDocument {
