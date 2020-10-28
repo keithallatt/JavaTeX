@@ -1,5 +1,6 @@
 package javatex;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @version 2020-10-25
  *
  */
-public abstract class LaTeXSnippet implements TeX {
+public abstract class LaTeXSnippet implements TeX, Serializable {
 	// What type is this snippet? Dictates what can be put where.
 	public final SnippetType snippetType;
 
@@ -56,7 +57,11 @@ public abstract class LaTeXSnippet implements TeX {
 		 * 
 		 * ENV: a defined environment.
 		 * 
-		 * GEN: a generic
+		 * GEN: a generic use case
+		 * 
+		 * DOC: a document container.
+		 * 
+		 * MAT: uses math environment features. 
 		 */
 		USE, ENV, GEN, DOC;
 	}
