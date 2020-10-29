@@ -8,5 +8,3 @@ As of right now, this software is still a WIP. When the graphical interface is l
 
 As progress is made, more presets and customizability will become available. 
 
-
-
