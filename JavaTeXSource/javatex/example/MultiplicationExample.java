@@ -107,10 +107,10 @@ public final class MultiplicationExample extends JTProblemFrame {
 		// general form at top of align environment
 		math.addEquationLine(
 				"a \\times b = a + ... + a \\; (b\\text{ times})");
-
+		
 		int sum = a;
 		b--;
-
+		
 		while (b >= 0) {
 			// each subsequent line adds the first two terms and maintains the rest.
 			String eqnLine = "= " + sum;
