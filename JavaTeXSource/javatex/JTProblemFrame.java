@@ -2,6 +2,10 @@ package javatex;
 
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
+
+import javatex.field.JTField;
+
 /**
  * Represents a bare problem framework, that will allow a named set of inputs
  * such that changing the inputs generates a new LaTeX document snippet.
@@ -28,7 +32,7 @@ public abstract class JTProblemFrame extends LaTeXSnippet {
 		fields = new ArrayList<JTField<?>>();
 	}
 
-	
+	public abstract JPanel toGUI();
 
 	
 }

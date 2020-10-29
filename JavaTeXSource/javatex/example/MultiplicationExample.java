@@ -1,9 +1,14 @@
 package javatex.example;
 
+import java.awt.GridLayout;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import javatex.*;
 import javatex.envrn.*;
+import javatex.field.JTField;
+import javatex.field.JTIntField;
 
 /**
  * Represents an example problem frame, in which multiplication is represented
@@ -20,44 +25,30 @@ public final class MultiplicationExample extends JTProblemFrame {
 		LaTeXDocument docWme = new LaTeXDocument();
 		MultiplicationExample me = new MultiplicationExample(22, 9);
 
-		docWme.addSnippet(me);
+		JFrame frame = new JFrame("Multiplication Example");
+		frame.getContentPane().add(me.toGUI());
 
-		System.out.println(docWme.convert());
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	public MultiplicationExample(int a, int b) {
 		super(LaTeXSnippet.SnippetType.MAT);
 
-		fields.add(new JTField<Integer>("a", a) {
+		fields.add(new JTIntField("a", a, 2, 1, 15, 1));
+		fields.add(new JTIntField("b", a, 3, 1, 15, 1));
+	}
 
-			@Override
-			public JPanel generateInputField() {
+	@Override
+	public JPanel toGUI() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(0,1));
 
-				return null;
-			}
+		for (JTField<?> f : fields) {
+			panel.add(f.generateInputField());
+		}
 
-			@Override
-			public Integer generateObjectFromInput() {
-
-				return null;
-			}
-		});
-
-		fields.add(new JTField<Integer>("b", b) {
-
-			@Override
-			public JPanel generateInputField() {
-
-				return null;
-			}
-
-			@Override
-			public Integer generateObjectFromInput() {
-
-				return null;
-			}
-		});
-
+		return panel;
 	}
 
 	@Override
@@ -66,32 +57,25 @@ public final class MultiplicationExample extends JTProblemFrame {
 		int b = 0;
 
 		for (JTField<?> f : fields) {
-			if (f.getFieldName().equals("a")) {
-				Object oa = f.getObjectValue();
-
-				if (oa instanceof Integer) {
-					// ensures oa is Integer
-
-					a = (Integer) oa;
-				} else {
-					// throw exception
-				}
-			} else if (f.getFieldName().equals("b")) {
-				Object ob = f.getObjectValue();
-
-				if (ob instanceof Integer) {
-					// ensures oa is Integer
-
-					b = (Integer) ob;
-				} else {
-					// throw exception
-				}
+			// we know f is a JTIntField from the usage.
+			JTIntField intF = (JTIntField) f;
+			if (intF.getFieldName().equals("a")) {
+				a = intF.generateObjectFromInput();
+			} else if (intF.getFieldName().equals("b")) {
+				b = intF.generateObjectFromInput();
 			}
 		}
 
 		// should ensure a and b are positive for this example.
 		a = Math.abs(a);
 		b = Math.abs(b);
+
+		// make the larger one a.
+		if (b > a) {
+			int t = a;
+			a = b;
+			b = t;
+		}
 
 		clearSnippets();
 
@@ -107,10 +91,10 @@ public final class MultiplicationExample extends JTProblemFrame {
 		// general form at top of align environment
 		math.addEquationLine(
 				"a \\times b = a + ... + a \\; (b\\text{ times})");
-		
+
 		int sum = a;
 		b--;
-		
+
 		while (b >= 0) {
 			// each subsequent line adds the first two terms and maintains the rest.
 			String eqnLine = "= " + sum;

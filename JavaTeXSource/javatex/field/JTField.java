@@ -1,4 +1,6 @@
-package javatex;
+package javatex.field;
+
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
@@ -20,6 +22,8 @@ public abstract class JTField<T> {
 	protected T objectValue;
 
 	protected JPanel inputFields;
+	
+	protected static Dimension inputDimensions = new Dimension(300,50);
 
 	public JTField(String fn, T ov) {
 		fieldName = fn;
@@ -41,7 +45,7 @@ public abstract class JTField<T> {
 	public String getFieldName() {
 		return fieldName;
 	}
-
+	
 	public abstract JPanel generateInputField();
 
 	public abstract T generateObjectFromInput();
