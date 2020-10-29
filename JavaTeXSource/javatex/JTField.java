@@ -8,7 +8,7 @@ import javax.swing.JPanel;
  * Key properties: 1) All fields must have a unique name in any given problem
  * set. 2) All fields must define how to create a graphical input field that
  * they'll be able to read from. 3) All fields must define how to take the raw
- * input fields as objects and convert them into an object of type <T>.
+ * input fields as objects and convert them into an object of type T.
  * 
  * @author Keith Allatt
  * @version 2020-10-27

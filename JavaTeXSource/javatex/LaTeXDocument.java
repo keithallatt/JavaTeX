@@ -2,26 +2,15 @@ package javatex;
 
 import java.util.HashSet;
 
-import javatex.envrn.Paragraph;
-
 /**
- * Container for a
+ * Container for a set of problem sets or snippets. This object will contain a
+ * set of these and
  * 
  * @author Keith Allatt
  * @version 2020-10-26
  *
  */
 public class LaTeXDocument extends LaTeXSnippet {
-	public static void main(String[] args) {
-		LaTeXDocument ld = new LaTeXDocument();
-
-		Paragraph p = new Paragraph("Hello World!");
-
-		ld.addSnippet(p);
-
-		System.out.println(ld.convert());
-	}
-
 	/*
 	 * Has access to subSnippets and TeXCode, just needs specific lists for specific
 	 * cases. Such as imports / document class.
@@ -64,6 +53,18 @@ public class LaTeXDocument extends LaTeXSnippet {
 						endEnv.trim() });
 	}
 
+	/**
+	 * Represents all document classes defined by LaTeX.
+	 * 
+	 * Contains all options for font size, paper size, etc., controllable through
+	 * here.
+	 * 
+	 * TODO: add a customizeOption method to change certain parameters.
+	 * 
+	 * @author Keith Allatt
+	 * @version 2020-10-28
+	 *
+	 */
 	enum DocumentClass implements TeX {
 		ARTICLE("article"), IEEETRAN("IEEEtran"), PROC(
 				"proc"), REPORT("report"), BOOK("book"), SLIDES(

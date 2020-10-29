@@ -2,8 +2,6 @@ package javatex;
 
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
-
 /**
  * Represents a bare problem framework, that will allow a named set of inputs
  * such that changing the inputs generates a new LaTeX document snippet.
@@ -13,7 +11,12 @@ import javax.swing.JPanel;
  *
  */
 public abstract class JTProblemFrame extends LaTeXSnippet {
-	ArrayList<JTField<?>> fields;
+	/*
+	 * Need a set of inputs, named, such that the convert function can take in the
+	 * inputs, calculate the output (to the problem) and generate a LaTeXSnippet
+	 * that displays all work done.
+	 */
+	protected ArrayList<JTField<?>> fields;
 	
 	public JTProblemFrame() {
 		super();
@@ -25,11 +28,7 @@ public abstract class JTProblemFrame extends LaTeXSnippet {
 		fields = new ArrayList<JTField<?>>();
 	}
 
-	/*
-	 * Need a set of inputs, named, such that the convert function can take in the
-	 * inputs, calculate the output (to the problem) and generate a LaTeXSnippet
-	 * that displays all work done.
-	 */
+	
 
 	
 }

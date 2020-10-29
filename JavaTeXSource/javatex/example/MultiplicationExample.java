@@ -1,18 +1,27 @@
-package javatex;
+package javatex.example;
 
 import javax.swing.JPanel;
 
-import javatex.envrn.Align;
-import javatex.envrn.Paragraph;
+import javatex.*;
+import javatex.envrn.*;
 
+/**
+ * Represents an example problem frame, in which multiplication is represented
+ * as repeated addition. Currently this example produces output and displays it
+ * to the console. In the final product this will be written to file and a pdf
+ * will be generated from it.
+ * 
+ * @author Keith Allatt
+ * @version 2020-10-28
+ *
+ */
 public final class MultiplicationExample extends JTProblemFrame {
-	public static void main(String[]args) {
+	public static void main(String[] args) {
 		LaTeXDocument docWme = new LaTeXDocument();
-		MultiplicationExample me = new MultiplicationExample(3, 5);
-		
+		MultiplicationExample me = new MultiplicationExample(22, 9);
+
 		docWme.addSnippet(me);
-		
-		
+
 		System.out.println(docWme.convert());
 	}
 
@@ -79,7 +88,7 @@ public final class MultiplicationExample extends JTProblemFrame {
 				}
 			}
 		}
-		
+
 		// should ensure a and b are positive for this example.
 		a = Math.abs(a);
 		b = Math.abs(b);
@@ -95,6 +104,7 @@ public final class MultiplicationExample extends JTProblemFrame {
 
 		Align math = new Align();
 
+		// general form at top of align environment
 		math.addEquationLine(
 				"a \\times b = a + ... + a \\; (b\\text{ times})");
 
@@ -102,19 +112,21 @@ public final class MultiplicationExample extends JTProblemFrame {
 		b--;
 
 		while (b >= 0) {
-			String eqnLine = "= "+sum;
+			// each subsequent line adds the first two terms and maintains the rest.
+			String eqnLine = "= " + sum;
 			for (int i = 0; i < b; i++)
-				eqnLine += "+"+a;
+				eqnLine += "+" + a;
 			sum += a;
 			b--;
 			math.addEquationLine(eqnLine);
 		}
-		
+
 		math.setEquationNumbering(false);
 		math.setAlignment(Align.AlignAt.FIRST_EQUALS);
-		
+
 		addSnippet(math);
-				
-		return String.join("\n\n", new String[] {explanation.convert(), math.convert()});
+
+		return String.join("\n\n", new String[] {
+				explanation.convert(), math.convert() });
 	}
 }

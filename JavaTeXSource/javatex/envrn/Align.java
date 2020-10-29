@@ -14,7 +14,9 @@ import javatex.LaTeXSnippet;
  */
 public class Align extends LaTeXSnippet {
 	AlignAt alignment;
+
 	String alignmentToken = "=";
+
 	private boolean eqno = true;
 
 	ArrayList<String> equations;
@@ -27,14 +29,30 @@ public class Align extends LaTeXSnippet {
 		equations = new ArrayList<String>();
 	}
 
-	public boolean addEquationLine(String eqn) {
-		return equations.add(eqn);
+	/**
+	 * Add an equation to the align environment.
+	 * 
+	 * @param eqn:
+	 *            The equation to be displayed.
+	 */
+	public void addEquationLine(String eqn) {
+		equations.add(eqn);
 	}
 
+	/**
+	 * Remove a given equation from the align environment.
+	 * 
+	 * @param eqn:
+	 *            The equation to be removed.
+	 * @return true if 'equations' contained eqn.
+	 */
 	public boolean removeEquationLine(String eqn) {
 		return equations.remove(eqn);
 	}
 
+	/**
+	 * Remove all equations and create an empty environment.
+	 */
 	public void clearEquationLine() {
 		equations = new ArrayList<String>();
 	}
@@ -56,14 +74,20 @@ public class Align extends LaTeXSnippet {
 			repr += "\n" + addAlignmentCharacter(eqnLine);
 		}
 
-		
-		
 		if (hasEquationNumbering()) repr += "\n\\end{align}";
 		else repr += "\n\\end{align*}";
 
 		return repr;
 	}
 
+	/**
+	 * Take an equation 'eqnLine' and add the &amp; symbol to align each equation in
+	 * this environment.
+	 * 
+	 * @param eqnLine:
+	 *            The equation to be aligned.
+	 * @return the formatted equation.
+	 */
 	private String addAlignmentCharacter(String eqnLine) {
 		if (alignment == AlignAt.NOWHERE) return eqnLine;
 
@@ -74,13 +98,13 @@ public class Align extends LaTeXSnippet {
 
 		for (int i = 1; i < pieces.length; i++) {
 			if (alignment == AlignAt.FIRST_EQUALS && i == 1)
-				repr += "&="+pieces[i];
-			else if (alignment == AlignAt.LAST_EQUALS && i == pieces.length - 1)
-				repr += "&="+pieces[i];
+				repr += "&" + alignmentToken + pieces[i];
+			else if (alignment == AlignAt.LAST_EQUALS
+					&& i == pieces.length - 1)
+				repr += "&" + alignmentToken + pieces[i];
 			else if (alignment == AlignAt.ALL_EQUALS)
-				repr += "&="+pieces[i];
-			else
-				repr += "="+pieces[i];
+				repr += "&" + alignmentToken + pieces[i];
+			else repr += "=" + pieces[i];
 		}
 		return repr;
 	}
@@ -90,23 +114,45 @@ public class Align extends LaTeXSnippet {
 		return new LaTeXPackage[] { new LaTeXPackage("amsmath") };
 	}
 
+	/**
+	 * Alignment enum: options for alignment to various common align points.
+	 * 
+	 * Note that FIRST_EQUALS, LAST_EQUALS, and ALL_EQUALS accomplish the same task
+	 * if the equation lines only have one equal sign.
+	 * 
+	 * @author Keith Allatt
+	 * @version 2020-10-28
+	 *
+	 */
 	public enum AlignAt {
 		NOWHERE, FIRST_EQUALS, LAST_EQUALS, ALL_EQUALS;
 	}
 
+	/**
+	 * Set the alignment to one of not aligned, aligned to the first equal sign,
+	 * aligned to the last equal sign, or aligned to all equal signs.
+	 * 
+	 * @param alignment:
+	 *            The alignment to use for this environment.
+	 */
 	public void setAlignment(AlignAt alignment) {
 		this.alignment = alignment;
 	}
 
 	/**
-	 * @return The eqno.
+	 * Returns whether or not equation numbering is enabled.
+	 * 
+	 * @return whether or not equation numbering is enabled.
 	 */
 	public boolean hasEquationNumbering() {
 		return eqno;
 	}
 
 	/**
-	 * @param eqno The eqno to set.
+	 * Toggles equation numbering.
+	 * 
+	 * @param eqno:
+	 *            Enable/Disable equation numbering.
 	 */
 	public void setEquationNumbering(boolean eqno) {
 		this.eqno = eqno;
