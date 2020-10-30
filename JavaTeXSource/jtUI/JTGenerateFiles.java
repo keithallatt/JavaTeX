@@ -33,62 +33,76 @@ public class JTGenerateFiles extends JPanel {
 
 		inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
 
-		int height = 100;
+		int height = 75;
 		inner.add(Box.createRigidArea(new Dimension(
 				getPreferredSize().width - 10, height)));
 
 		int textFieldWidth = 25;
 
-		JComponent[] components = new JComponent[] {
-				new JLabel("TeX Filepath:"),
-				new JTextField(System.getProperty("user.home")+System.getProperty("file.separator")+"output.tex",
-						textFieldWidth),
-				new JButton("Choose..."), new JButton("Generate TeX"),
-				new JButton("Generate PDF"), new JLabel("") };
+		JLabel labelFilePath = new JLabel("TeX Filepath:");
+		JTextField inputFilePath = new JTextField(
+				System.getProperty("user.home")
+						+ System.getProperty("file.separator")
+						+ "output.tex",
+				textFieldWidth);
 
-		((JButton) components[2])
-				.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						JFileChooser fileChooser = new JFileChooser();
-						fileChooser.setCurrentDirectory(new File(
-								System.getProperty("user.home")));
-						fileChooser.setSelectedFile(new File("output.tex"));
-						fileChooser.setAcceptAllFileFilterUsed(false);
-						fileChooser.addChoosableFileFilter(
-								new FileNameExtensionFilter(
-										"TeX Documents", "tex"));
-						int result = fileChooser
-								.showSaveDialog(this_ref);
-						if (result == JFileChooser.APPROVE_OPTION) {
-							File selectedFile = fileChooser
-									.getSelectedFile();
-							selectedFile = changeExtension(selectedFile, ".tex");
-							((JTextField) components[1]).setText(
-									selectedFile.getAbsolutePath());
-						}
-					}
-				});
+		JButton chooseFile = new JButton("Choose...");
 
-		// make groupings of three
+		JButton genTeX = new JButton("Generate TeX");
+		JButton genPDF = new JButton("Generate PDF");
 
-		for (int i = 0; i < components.length; i += 3) {
-			JPanel container = new JPanel(new FlowLayout());
+		chooseFile.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(
+						new File(System.getProperty("user.home")));
+				fileChooser.setSelectedFile(new File("output.tex"));
+				fileChooser.setAcceptAllFileFilterUsed(false);
+				fileChooser.addChoosableFileFilter(
+						new FileNameExtensionFilter("TeX Documents",
+								"tex"));
+				int result = fileChooser.showSaveDialog(this_ref);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					selectedFile = changeExtension(selectedFile,
+							".tex");
+					inputFilePath
+							.setText(selectedFile.getAbsolutePath());
+				}
+			}
+		});
+		
 
-			container.setPreferredSize(new Dimension(
-					this.getPreferredSize().width,
-					Math.max(components[i].getPreferredSize().height,
-							components[i + 1]
-									.getPreferredSize().height)));
+		// make fileinput container
+		JPanel containerFile = new JPanel(new FlowLayout());
 
-			container.add(components[i]);
-			container.add(components[i + 1]);
-			container.add(components[i + 2]);
+		containerFile.setPreferredSize(new Dimension(
+				this.getPreferredSize().width,
+				Math.max(labelFilePath.getPreferredSize().height, Math
+						.max(inputFilePath.getPreferredSize().height,
+								chooseFile
+										.getPreferredSize().height))));
 
-			inner.add(container);
+		containerFile.add(labelFilePath);
+		containerFile.add(inputFilePath);
+		containerFile.add(chooseFile);
 
-			height += 25 + container.getPreferredSize().height;
-		}
+		inner.add(containerFile);
+		height += 25 + containerFile.getPreferredSize().height;
+
+		JPanel containerGenerate = new JPanel(new FlowLayout());
+
+		containerGenerate.setPreferredSize(
+				new Dimension(this.getPreferredSize().width,
+						Math.max(genTeX.getPreferredSize().height,
+								genPDF.getPreferredSize().height)));
+
+		containerGenerate.add(genTeX);
+		containerGenerate.add(genPDF);
+
+		inner.add(containerGenerate);
+		height += 25 + containerGenerate.getPreferredSize().height;
 
 		// keep compact.
 		inner.setPreferredSize(
@@ -99,8 +113,7 @@ public class JTGenerateFiles extends JPanel {
 
 	private static File changeExtension(File f, String newExtension) {
 		int i = f.getName().lastIndexOf('.');
-		if (i == -1)
-			i = f.getName().length();
+		if (i == -1) i = f.getName().length();
 		String name = f.getName().substring(0, i);
 		return new File(f.getParent(), name + newExtension);
 	}

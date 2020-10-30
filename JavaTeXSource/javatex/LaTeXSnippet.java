@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public abstract class LaTeXSnippet implements TeX, Serializable {
 	// useful reference.
-	public final LaTeXSnippet PAGE_BREAK = new LaTeXSnippet() {
+	public final static LaTeXSnippet PAGE_BREAK = new LaTeXSnippet() {
 		@Override
 		public String convert() {
 			return "\\newpage";
