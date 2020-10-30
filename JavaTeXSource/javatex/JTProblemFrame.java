@@ -12,7 +12,7 @@ import javatex.field.JTField;
  * 
  * @author Keith Allatt
  * @version 2020-10-25
- *
+ * 
  */
 public abstract class JTProblemFrame extends LaTeXSnippet {
 	/*
@@ -21,18 +21,31 @@ public abstract class JTProblemFrame extends LaTeXSnippet {
 	 * that displays all work done.
 	 */
 	protected ArrayList<JTField<?>> fields;
-	
+
+	/**
+	 * Create a generic ProblemFrame.
+	 */
 	public JTProblemFrame() {
 		super();
 		fields = new ArrayList<JTField<?>>();
 	}
-	
+
+	/**
+	 * Create a ProblemFrame with a particular snippet type. 
+	 * 
+	 * @param type
+	 */
 	public JTProblemFrame(SnippetType type) {
 		super(type);
 		fields = new ArrayList<JTField<?>>();
 	}
 
+	/**
+	 * Create a container for all fields required according to their data types.
+	 * Each individual component of this container is itself a container, containing
+	 * a particular field's input fields with appropriate labels.
+	 * 
+	 * @return the container of JTField input containers.
+	 */
 	public abstract JPanel toGUI();
-
-	
 }

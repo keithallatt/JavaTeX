@@ -35,6 +35,7 @@ public final class MultiplicationExample extends JTProblemFrame {
 	public MultiplicationExample(int a, int b) {
 		super(LaTeXSnippet.SnippetType.MAT);
 
+		// set a=2, b=3 by default, a and b must be within 1 and 15 inclusive.
 		fields.add(new JTIntField("a", a, 2, 1, 15, 1));
 		fields.add(new JTIntField("b", a, 3, 1, 15, 1));
 	}
@@ -42,7 +43,7 @@ public final class MultiplicationExample extends JTProblemFrame {
 	@Override
 	public JPanel toGUI() {
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0,1));
+		panel.setLayout(new GridLayout(0, 1));
 
 		for (JTField<?> f : fields) {
 			panel.add(f.generateInputField());

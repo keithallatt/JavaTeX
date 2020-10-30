@@ -18,6 +18,9 @@ public class LaTeXDocument extends LaTeXSnippet {
 	DocumentClass docClass;
 	LaTeXPackage[] dependencies;
 
+	/**
+	 * Generate a blank document.
+	 */
 	public LaTeXDocument() {
 		super(LaTeXSnippet.SnippetType.DOC);
 

@@ -10,14 +10,14 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 /**
- * 
+ * JTField implemented for integer input fields. Uses a spinner object to
+ * capture input from the user.
  * 
  * @author Keith Allatt
  * @version 2020-10-29
  *
  */
 public final class JTIntField extends JTField<Integer> {
-
 	private Integer defaultVal, min, max, step;
 
 	public JTIntField(String fn, Integer ov, Integer defaultVal,

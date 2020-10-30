@@ -6,7 +6,9 @@ import javatex.LaTeXPackage;
 import javatex.LaTeXSnippet;
 
 /**
- * Represents the Align environment in
+ * Represents the Align environment in LaTeX. Converts a set of equations to a
+ * formatted math environment. All math equations and math mode required
+ * commands will work in this environment (as per LaTeX's compiler).
  * 
  * @author Keith Allatt
  * @version 2020-10-28

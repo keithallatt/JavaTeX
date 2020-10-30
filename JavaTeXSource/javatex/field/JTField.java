@@ -17,19 +17,45 @@ import javax.swing.JPanel;
  *
  */
 public abstract class JTField<T> {
-
 	protected String fieldName;
 	protected T objectValue;
 
 	protected JPanel inputFields;
-	
-	protected static Dimension inputDimensions = new Dimension(300,50);
 
+	protected static Dimension inputDimensions = new Dimension(300,
+			50);
+
+	/**
+	 * Create a JTField with a default object value.
+	 * 
+	 * @param fn:
+	 *            The field name.
+	 * @param ov:
+	 *            The object value.
+	 */
 	public JTField(String fn, T ov) {
 		fieldName = fn;
 		objectValue = ov;
 	}
 
+	/**
+	 * Generate a JPanel containing the appropriate labels and input fields in order
+	 * to create an object of type T.
+	 * 
+	 * @return The JPanel container for this JTField's input fields.
+	 */
+	public abstract JPanel generateInputField();
+
+	/**
+	 * Generate an object of type T from the container used to gain input from the
+	 * user.
+	 * 
+	 * @return An object of type T defined by this JTField's input field.
+	 */
+	public abstract T generateObjectFromInput();
+	
+	//// Setters and Getters.
+	
 	public void setObjectValue(T object) {
 		objectValue = object;
 	}
@@ -45,8 +71,4 @@ public abstract class JTField<T> {
 	public String getFieldName() {
 		return fieldName;
 	}
-	
-	public abstract JPanel generateInputField();
-
-	public abstract T generateObjectFromInput();
 }

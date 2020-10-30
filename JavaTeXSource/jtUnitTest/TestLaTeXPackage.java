@@ -11,7 +11,7 @@ import javatex.LaTeXSnippet;
  * Test LaTeXPackage class.
  * 
  * SuppressWarnings for static methods. Static methods do not run as JUnit5 Test
- * Cases. DO NOT CHANGE THIS.
+ * Cases. DO NOT MODIFY.
  * 
  * @author Keith Allatt
  * @version 2020-10-25
@@ -20,6 +20,9 @@ import javatex.LaTeXSnippet;
 @SuppressWarnings("static-method")
 class TestLaTeXPackage {
 	@Test
+	/**
+	 * Test importing the Babel package.
+	 */
 	void testBabelPackageConvert() {
 		// testing the package input:
 		// \\ usepackage [english]{babel}
@@ -34,6 +37,9 @@ class TestLaTeXPackage {
 	}
 
 	@Test
+	/**
+	 * Test importing the CSQuotes package
+	 */
 	void testCSQuotesPackageConvert() {
 		// testing the package input:
 		// \\ usepackage [english]{babel}
@@ -62,6 +68,9 @@ class TestLaTeXPackage {
 	}
 
 	@Test
+	/**
+	 * Test if the snippet type has correctly been set as SnippetType.USE.
+	 */
 	void testLaTeXPackageSnippetType() {
 		// get the snippet type from the latex package snippet
 

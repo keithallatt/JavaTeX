@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Represents a snippet of LaTeX code. When a list of LaTeXSnippets are combined
  * and saved as a .tex file, that resulting file should always be a valid
  * snippet. By that logic, any individual LaTeXSnippet should also be valid when
- * enclosed in the correct headers and footers.
+ * enclosed in the correct headers and footers (or in a particular environment).
  * 
  * @author Keith Allatt
  * @version 2020-10-25
@@ -17,55 +17,52 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 	// What type is this snippet? Dictates what can be put where.
 	public final SnippetType snippetType;
 
-	// raw code from imports. Can
 	protected ArrayList<LaTeXSnippet> subSnippets;
 
+	/**
+	 * Create a snippet of a particular type as defined in LaTeXSnippet.SnippetType.
+	 * 
+	 * @param snippetType:
+	 *            The type of LaTeX snippet this object is.
+	 */
 	public LaTeXSnippet(SnippetType snippetType) {
 		this.snippetType = snippetType;
 		this.subSnippets = new ArrayList<LaTeXSnippet>();
 	}
 
+	/**
+	 * Create a general snippet.
+	 */
 	public LaTeXSnippet() {
 		this(SnippetType.GEN);
 	}
 
 	/**
-	 * @return The subSnippets.
+	 * Expected to be overridden for classes requiring specific type sub-snippets or
+	 * even specific object types. This implementation only checks for validity, no
+	 * type checking occurs.
+	 * 
+	 * @param snip:
+	 *            The LaTeXSnippet to be added to this one (as a sub piece.
+	 * @return True if snip is a valid LaTeXSnippet. False otherwise.
 	 */
-	public ArrayList<LaTeXSnippet> getSubSnippets() {
-		return subSnippets;
+	public boolean addSnippet(LaTeXSnippet snip) {
+		if (snip.validate()) return subSnippets.add(snip);
+		return false;
 	}
 
 	/**
-	 * Expected to be overridden for classes requiring specific type subsnippets or
-	 * even specific object types.
+	 * Remove a snippet from this container.
 	 * 
-	 * @param snip:
-	 *            the LaTeXSnippet to be added to this one (as a sub piece.
-	 * @return true (as specified by Collection.add)
+	 * @param snip: The snippet to be removed.
+	 * @return true if this snippet contained snip.
 	 */
-	public boolean addSnippet(LaTeXSnippet snip) {
-		return subSnippets.add(snip);
-	}
-
 	public boolean removeSnippet(LaTeXSnippet snip) {
 		return subSnippets.remove(snip);
 	}
-	
+
 	public void clearSnippets() {
 		subSnippets = new ArrayList<LaTeXSnippet>();
-	}
-
-	@Override
-	public LaTeXPackage[] getDependencies() {
-		ArrayList<LaTeXPackage> depends = new ArrayList<LaTeXPackage>();
-
-		for (LaTeXSnippet snip : subSnippets)
-			for (LaTeXPackage ltp : snip.getDependencies())
-				depends.add(ltp);
-		
-
-		return depends.toArray(new LaTeXPackage[] {});
 	}
 
 	/**
@@ -89,5 +86,22 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 
 	public enum SnippetType {
 		USE, ENV, GEN, DOC, MAT;
+	}
+
+	//// Setters and Getters
+
+	public ArrayList<LaTeXSnippet> getSubSnippets() {
+		return subSnippets;
+	}
+
+	@Override
+	public LaTeXPackage[] getDependencies() {
+		ArrayList<LaTeXPackage> depends = new ArrayList<LaTeXPackage>();
+
+		for (LaTeXSnippet snip : subSnippets)
+			for (LaTeXPackage ltp : snip.getDependencies())
+				depends.add(ltp);
+
+		return depends.toArray(new LaTeXPackage[] {});
 	}
 }
