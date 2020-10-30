@@ -17,7 +17,7 @@ public final class Paragraph extends LaTeXSnippet {
 	 * Create a set of paragraphs linked as one section. Each String input gets
 	 * separated by two newlines to separate paragraphs within this environment.
 	 * 
-	 * @param text
+	 * @param text: The text pieces to concatenate into a grouping of paragraphs.
 	 */
 	public Paragraph(String... text) {
 		setText(text);

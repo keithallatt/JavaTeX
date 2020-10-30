@@ -33,7 +33,7 @@ public abstract class JTProblemFrame extends LaTeXSnippet {
 	/**
 	 * Create a ProblemFrame with a particular snippet type. 
 	 * 
-	 * @param type
+	 * @param type: The snippet type to use.
 	 */
 	public JTProblemFrame(SnippetType type) {
 		super(type);
