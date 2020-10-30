@@ -5,8 +5,11 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import javatex.*;
-import javatex.envrn.*;
+import javatex.JTProblemFrame;
+import javatex.LaTeXDocument;
+import javatex.LaTeXSnippet;
+import javatex.envrn.Align;
+import javatex.envrn.Paragraph;
 import javatex.field.JTField;
 import javatex.field.JTIntField;
 
@@ -32,6 +35,11 @@ public final class MultiplicationExample extends JTProblemFrame {
 		frame.setVisible(true);
 	}
 
+
+	public MultiplicationExample() {
+		this(1,1);
+	}
+	
 	public MultiplicationExample(int a, int b) {
 		super(LaTeXSnippet.SnippetType.MAT);
 

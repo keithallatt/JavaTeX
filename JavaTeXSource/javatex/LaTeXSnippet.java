@@ -14,6 +14,14 @@ import java.util.ArrayList;
  *
  */
 public abstract class LaTeXSnippet implements TeX, Serializable {
+	// useful reference.
+	public final LaTeXSnippet PAGE_BREAK = new LaTeXSnippet() {
+		@Override
+		public String convert() {
+			return "\\newpage";
+		}
+	};
+
 	// What type is this snippet? Dictates what can be put where.
 	public final SnippetType snippetType;
 
@@ -54,7 +62,8 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 	/**
 	 * Remove a snippet from this container.
 	 * 
-	 * @param snip: The snippet to be removed.
+	 * @param snip:
+	 *            The snippet to be removed.
 	 * @return true if this snippet contained snip.
 	 */
 	public boolean removeSnippet(LaTeXSnippet snip) {
