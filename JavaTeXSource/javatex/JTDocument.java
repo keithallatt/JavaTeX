@@ -2,6 +2,8 @@ package javatex;
 
 import java.util.HashSet;
 
+import javax.xml.*;
+
 /**
  * Container for a set of problem sets or snippets. This object will contain a
  * set of these and
@@ -10,19 +12,19 @@ import java.util.HashSet;
  * @version 2020-10-26
  *
  */
-public class LaTeXDocument extends LaTeXSnippet {
+public class JTDocument extends JTSnippet {
 	/*
 	 * Has access to subSnippets and TeXCode, just needs specific lists for specific
 	 * cases. Such as imports / document class.
 	 */
 	DocumentClass docClass;
-	LaTeXPackage[] dependencies;
+	JTPackage[] dependencies;
 
 	/**
 	 * Generate a blank document.
 	 */
-	public LaTeXDocument() {
-		super(LaTeXSnippet.SnippetType.DOC);
+	public JTDocument() {
+		super(JTSnippet.SnippetType.DOC);
 
 		docClass = DocumentClass.REPORT;
 	}
@@ -36,7 +38,7 @@ public class LaTeXDocument extends LaTeXSnippet {
 		// need to generate body
 		String body = "";
 
-		for (LaTeXSnippet ss : subSnippets)
+		for (JTSnippet ss : subSnippets)
 			body += "\n" + ss.convert();
 
 		// get dependencies after generating bodies so each class can ensure what
@@ -45,7 +47,7 @@ public class LaTeXDocument extends LaTeXSnippet {
 
 		String depends = "";
 
-		for (LaTeXPackage ltp : dependencies)
+		for (JTPackage ltp : dependencies)
 			depends += "\n" + ltp.convert();
 
 		String endEnv = "\\end{document}";

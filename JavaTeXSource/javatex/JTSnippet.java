@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @version 2020-10-25
  *
  */
-public abstract class LaTeXSnippet implements TeX, Serializable {
+public abstract class JTSnippet implements TeX, Serializable {
 	// useful reference.
-	public final static LaTeXSnippet PAGE_BREAK = new LaTeXSnippet() {
+	public final static JTSnippet PAGE_BREAK = new JTSnippet() {
 		@Override
 		public String convert() {
 			return "\\newpage";
@@ -25,7 +25,7 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 	// What type is this snippet? Dictates what can be put where.
 	public final SnippetType snippetType;
 
-	protected ArrayList<LaTeXSnippet> subSnippets;
+	protected ArrayList<JTSnippet> subSnippets;
 
 	/**
 	 * Create a snippet of a particular type as defined in LaTeXSnippet.SnippetType.
@@ -33,15 +33,15 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 	 * @param snippetType:
 	 *            The type of LaTeX snippet this object is.
 	 */
-	public LaTeXSnippet(SnippetType snippetType) {
+	public JTSnippet(SnippetType snippetType) {
 		this.snippetType = snippetType;
-		this.subSnippets = new ArrayList<LaTeXSnippet>();
+		this.subSnippets = new ArrayList<JTSnippet>();
 	}
 
 	/**
 	 * Create a general snippet.
 	 */
-	public LaTeXSnippet() {
+	public JTSnippet() {
 		this(SnippetType.GEN);
 	}
 
@@ -54,7 +54,7 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 	 *            The LaTeXSnippet to be added to this one (as a sub piece.
 	 * @return True if snip is a valid LaTeXSnippet. False otherwise.
 	 */
-	public boolean addSnippet(LaTeXSnippet snip) {
+	public boolean addSnippet(JTSnippet snip) {
 		if (snip.validate()) return subSnippets.add(snip);
 		return false;
 	}
@@ -66,12 +66,12 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 	 *            The snippet to be removed.
 	 * @return true if this snippet contained snip.
 	 */
-	public boolean removeSnippet(LaTeXSnippet snip) {
+	public boolean removeSnippet(JTSnippet snip) {
 		return subSnippets.remove(snip);
 	}
 
 	public void clearSnippets() {
-		subSnippets = new ArrayList<LaTeXSnippet>();
+		subSnippets = new ArrayList<JTSnippet>();
 	}
 
 	/**
@@ -99,18 +99,18 @@ public abstract class LaTeXSnippet implements TeX, Serializable {
 
 	//// Setters and Getters
 
-	public ArrayList<LaTeXSnippet> getSubSnippets() {
+	public ArrayList<JTSnippet> getSubSnippets() {
 		return subSnippets;
 	}
 
 	@Override
-	public LaTeXPackage[] getDependencies() {
-		ArrayList<LaTeXPackage> depends = new ArrayList<LaTeXPackage>();
+	public JTPackage[] getDependencies() {
+		ArrayList<JTPackage> depends = new ArrayList<JTPackage>();
 
-		for (LaTeXSnippet snip : subSnippets)
-			for (LaTeXPackage ltp : snip.getDependencies())
+		for (JTSnippet snip : subSnippets)
+			for (JTPackage ltp : snip.getDependencies())
 				depends.add(ltp);
 
-		return depends.toArray(new LaTeXPackage[] {});
+		return depends.toArray(new JTPackage[] {});
 	}
 }

@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import javatex.LaTeXDocument;
-import javatex.LaTeXSnippet;
+import javatex.JTDocument;
+import javatex.JTSnippet;
 import javatex.envrn.Paragraph;
 
 /**
@@ -25,7 +25,7 @@ class TestLaTeXDocument {
 	 * Test if the hello world document can correctly be generated.
 	 */
 	void testLaTeXDocumentHelloWorld() {
-		LaTeXDocument ld = new LaTeXDocument();
+		JTDocument ld = new JTDocument();
 
 		Paragraph p = new Paragraph("Hello World!");
 
@@ -46,11 +46,11 @@ class TestLaTeXDocument {
 		// get the snippet type from the latex package snippet
 
 		// doesn't need to be a valid LaTeX package, just enough to extract information.
-		LaTeXDocument docObj = new LaTeXDocument();
+		JTDocument docObj = new JTDocument();
 
-		LaTeXSnippet.SnippetType snippetType = docObj.snippetType;
+		JTSnippet.SnippetType snippetType = docObj.snippetType;
 
-		LaTeXSnippet.SnippetType expected = LaTeXSnippet.SnippetType.DOC;
+		JTSnippet.SnippetType expected = JTSnippet.SnippetType.DOC;
 
 		assertEquals(expected, snippetType);
 	}

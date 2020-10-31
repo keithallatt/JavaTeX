@@ -2,16 +2,16 @@ package jtUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.KeyEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.border.Border;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
+import javatex.JTDocument;
 import javatex.JTProblemFrame;
-import javatex.example.MultiplicationExample;
+import javatex.presets.MultiplicationExample;
 
 /**
  * Graphical User Interface to interact with the JavaTeX framework.
@@ -37,13 +37,28 @@ public class JTUserInterface extends JPanel {
 		
 	}
 
-	JTProblemFrame currentProblemFrame;
+	
+	
+	private JTProblemFrame currentProblemFrame;
 
-	JPanel problemFrameSelect, problemFrameFieldInput, editWindow,
+	private JPanel problemFrameSelect, problemFrameFieldInput, editWindow,
 			buttonWindow;
 
 	public JTUserInterface() {
+		// create a new UI feel
+		try {
+			UIManager.setLookAndFeel(
+			        UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
+		UIManager.put("TabbedPane.selected", new Color(25,100,25));
+		
 		JTabbedPane container = new JTabbedPane();
+		container.setBackground(new Color(83, 83, 83));
+		container.setForeground(new Color(255, 255, 255));
 		
 		// temporary
 		currentProblemFrame = new MultiplicationExample();
@@ -51,7 +66,7 @@ public class JTUserInterface extends JPanel {
 		problemFrameSelect = new JPanel();
 		problemFrameFieldInput = new JPanel();
 		editWindow = new JPanel();
-		buttonWindow = new JTGenerateFiles();
+		buttonWindow = new JTGenerateFiles(this);
 		
 		setMinimumSize(new Dimension(500,500));
 		setPreferredSize(new Dimension(800,600));
@@ -63,17 +78,28 @@ public class JTUserInterface extends JPanel {
 		
 		container.addTab("Preset Selection", null, problemFrameSelect,
                 "Select a preset document");
-		container.setMnemonicAt(0, KeyEvent.VK_1);
+
 		container.addTab("Preset Configuration", null, problemFrameFieldInput,
                 "Set field variables");
-		container.setMnemonicAt(1, KeyEvent.VK_2);
+
 		container.addTab("Edit", null, editWindow,
                 "Edit problem frames in the document.");
-		container.setMnemonicAt(2, KeyEvent.VK_3);
+
 		container.addTab("Generate", null, buttonWindow,
                 "Publish the ");
-		container.setMnemonicAt(3, KeyEvent.VK_4);
+
 
 		add(container);
+	}
+
+	/**
+	 * Currently only bundles the current JTProblemFrame as a document.
+	 * 
+	 * @return
+	 */
+	public JTDocument returnDocument() {
+		JTDocument doc = new JTDocument();
+		doc.addSnippet(currentProblemFrame);
+		return doc;
 	}
 }

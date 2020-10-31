@@ -1,4 +1,4 @@
-package javatex.example;
+package javatex.presets;
 
 import java.awt.GridLayout;
 
@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import javatex.JTProblemFrame;
-import javatex.LaTeXDocument;
-import javatex.LaTeXSnippet;
+import javatex.JTDocument;
+import javatex.JTSnippet;
 import javatex.envrn.Align;
 import javatex.envrn.Paragraph;
 import javatex.field.JTField;
@@ -25,7 +25,7 @@ import javatex.field.JTIntField;
  */
 public final class MultiplicationExample extends JTProblemFrame {
 	public static void main(String[] args) {
-		LaTeXDocument docWme = new LaTeXDocument();
+		JTDocument docWme = new JTDocument();
 		MultiplicationExample me = new MultiplicationExample(22, 9);
 
 		JFrame frame = new JFrame("Multiplication Example");
@@ -41,7 +41,7 @@ public final class MultiplicationExample extends JTProblemFrame {
 	}
 	
 	public MultiplicationExample(int a, int b) {
-		super(LaTeXSnippet.SnippetType.MAT);
+		super(JTSnippet.SnippetType.MAT);
 
 		// set a=2, b=3 by default, a and b must be within 1 and 15 inclusive.
 		fields.add(new JTIntField("a", a, 2, 1, 15, 1));

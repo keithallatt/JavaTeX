@@ -14,7 +14,7 @@ import javatex.field.JTField;
  * @version 2020-10-25
  * 
  */
-public abstract class JTProblemFrame extends LaTeXSnippet {
+public abstract class JTProblemFrame extends JTSnippet {
 	/*
 	 * Need a set of inputs, named, such that the convert function can take in the
 	 * inputs, calculate the output (to the problem) and generate a LaTeXSnippet

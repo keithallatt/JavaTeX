@@ -49,7 +49,7 @@ public interface TeX {
 	 * 
 	 * @return the list of dependencies.
 	 */
-	public default LaTeXPackage[] getDependencies() {
-		return new LaTeXPackage[] {};
+	public default JTPackage[] getDependencies() {
+		return new JTPackage[] {};
 	}
 }

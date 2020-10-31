@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @version 2020-10-25
  *
  */
-public class LaTeXPackage extends LaTeXSnippet {
+public class JTPackage extends JTSnippet {
 	private String packageName;
 	private String[] options;
 
@@ -20,7 +20,7 @@ public class LaTeXPackage extends LaTeXSnippet {
 	 * @param packageName:
 	 *            The package name.
 	 */
-	public LaTeXPackage(String packageName) {
+	public JTPackage(String packageName) {
 		this(packageName, new String[] {});
 	}
 
@@ -30,7 +30,7 @@ public class LaTeXPackage extends LaTeXSnippet {
 	 * @param kw:
 	 *            The package name followed by all specified options.
 	 */
-	public LaTeXPackage(String... kw) {
+	public JTPackage(String... kw) {
 		this(kw[0], Arrays.copyOfRange(kw, 1, kw.length));
 	}
 
@@ -42,8 +42,8 @@ public class LaTeXPackage extends LaTeXSnippet {
 	 * @param options:
 	 *            All specified options.
 	 */
-	public LaTeXPackage(String packageName, String[] options) {
-		super(LaTeXSnippet.SnippetType.USE);
+	public JTPackage(String packageName, String[] options) {
+		super(JTSnippet.SnippetType.USE);
 		this.packageName = packageName;
 		this.options = options;
 	}

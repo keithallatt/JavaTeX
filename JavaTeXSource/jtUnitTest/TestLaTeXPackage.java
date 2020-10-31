@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import javatex.LaTeXPackage;
-import javatex.LaTeXSnippet;
+import javatex.JTPackage;
+import javatex.JTSnippet;
 
 /**
  * Test LaTeXPackage class.
@@ -31,7 +31,7 @@ class TestLaTeXPackage {
 
 		String expected = "\\usepackage[english]{babel}";
 
-		LaTeXPackage packageObj = new LaTeXPackage(packageName, options);
+		JTPackage packageObj = new JTPackage(packageName, options);
 
 		assertEquals(expected, packageObj.convert());
 	}
@@ -48,7 +48,7 @@ class TestLaTeXPackage {
 
 		String expected = "\\usepackage[autostyle,english=american]{csquotes}";
 
-		LaTeXPackage packageObj = new LaTeXPackage(packageName, options);
+		JTPackage packageObj = new JTPackage(packageName, options);
 
 		assertEquals(expected, packageObj.convert());
 	}
@@ -62,7 +62,7 @@ class TestLaTeXPackage {
 
 		String expected = "\\usepackage[margin=0.5in]{geometry}";
 
-		LaTeXPackage packageObj = new LaTeXPackage(packageName, options);
+		JTPackage packageObj = new JTPackage(packageName, options);
 
 		assertEquals(expected, packageObj.convert());
 	}
@@ -75,11 +75,11 @@ class TestLaTeXPackage {
 		// get the snippet type from the latex package snippet
 
 		// doesn't need to be a valid LaTeX package, just enough to extract information.
-		LaTeXPackage packageObj = new LaTeXPackage("Sample");
+		JTPackage packageObj = new JTPackage("Sample");
 
-		LaTeXSnippet.SnippetType snippetType = packageObj.snippetType;
+		JTSnippet.SnippetType snippetType = packageObj.snippetType;
 
-		LaTeXSnippet.SnippetType expected = LaTeXSnippet.SnippetType.USE;
+		JTSnippet.SnippetType expected = JTSnippet.SnippetType.USE;
 
 		assertEquals(expected, snippetType);
 	}

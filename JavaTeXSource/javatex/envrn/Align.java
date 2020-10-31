@@ -2,8 +2,8 @@ package javatex.envrn;
 
 import java.util.ArrayList;
 
-import javatex.LaTeXPackage;
-import javatex.LaTeXSnippet;
+import javatex.JTPackage;
+import javatex.JTSnippet;
 
 /**
  * Represents the Align environment in LaTeX. Converts a set of equations to a
@@ -14,7 +14,7 @@ import javatex.LaTeXSnippet;
  * @version 2020-10-28
  *
  */
-public class Align extends LaTeXSnippet {
+public class Align extends JTSnippet {
 	AlignAt alignment;
 
 	String alignmentToken = "=";
@@ -112,8 +112,8 @@ public class Align extends LaTeXSnippet {
 	}
 
 	@Override
-	public LaTeXPackage[] getDependencies() {
-		return new LaTeXPackage[] { new LaTeXPackage("amsmath") };
+	public JTPackage[] getDependencies() {
+		return new JTPackage[] { new JTPackage("amsmath") };
 	}
 
 	/**

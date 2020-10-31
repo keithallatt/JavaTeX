@@ -1,6 +1,6 @@
 package javatex.envrn;
 
-import javatex.LaTeXSnippet;
+import javatex.JTSnippet;
 
 /**
  * Represents quite possibly the simplest LaTeXSnippet implementation. This
@@ -10,7 +10,7 @@ import javatex.LaTeXSnippet;
  * @version 2020-10-29
  *
  */
-public final class Paragraph extends LaTeXSnippet {
+public final class Paragraph extends JTSnippet {
 	private String text;
 
 	/**
