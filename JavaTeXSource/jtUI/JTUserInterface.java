@@ -31,35 +31,32 @@ public class JTUserInterface extends JPanel {
 
 		frame.pack();
 		frame.setVisible(true);
-		
-		frame.setMinimumSize(new Dimension(800,620));
-		frame.setMaximumSize(new Dimension(800,620));
-		
+
+		frame.setMinimumSize(new Dimension(800, 620));
+		frame.setMaximumSize(new Dimension(800, 620));
+
 	}
 
-	
-	
 	private JTProblemFrame currentProblemFrame;
 
-	private JPanel problemFrameSelect, problemFrameFieldInput, editWindow,
-			buttonWindow;
+	private JPanel problemFrameSelect, problemFrameFieldInput, editWindow, buttonWindow;
 
 	public JTUserInterface() {
 		// create a new UI feel
+
 		try {
-			UIManager.setLookAndFeel(
-			        UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		UIManager.put("TabbedPane.selected", new Color(25,100,25));
-		
+		UIManager.put("TabbedPane.selected", new Color(25, 100, 25));
+
 		JTabbedPane container = new JTabbedPane();
+
 		container.setBackground(new Color(83, 83, 83));
 		container.setForeground(new Color(255, 255, 255));
-		
+
 		// temporary
 		currentProblemFrame = new MultiplicationExample();
 
@@ -67,27 +64,25 @@ public class JTUserInterface extends JPanel {
 		problemFrameFieldInput = new JPanel();
 		editWindow = new JPanel();
 		buttonWindow = new JTGenerateFiles(this);
-		
-		setMinimumSize(new Dimension(500,500));
-		setPreferredSize(new Dimension(800,600));
-		
-		container.setMinimumSize(new Dimension(500,500));
-		container.setPreferredSize(new Dimension(800,600));
-		
+
+		setMinimumSize(new Dimension(500, 500));
+		setPreferredSize(new Dimension(800, 600));
+
+		container.setMinimumSize(new Dimension(500, 500));
+		container.setPreferredSize(new Dimension(800, 600));
+
 		problemFrameFieldInput.add(currentProblemFrame.toGUI());
-		
+
 		container.addTab("Preset Selection", null, problemFrameSelect,
-                "Select a preset document");
+				"Select a preset document");
 
 		container.addTab("Preset Configuration", null, problemFrameFieldInput,
-                "Set field variables");
+				"Set field variables");
 
-		container.addTab("Edit", null, editWindow,
-                "Edit problem frames in the document.");
+		container.addTab("Edit Document", null, editWindow,
+				"Edit problem frames in the document.");
 
-		container.addTab("Generate", null, buttonWindow,
-                "Publish the ");
-
+		container.addTab("Generate Files", null, buttonWindow, "Write LaTeX files");
 
 		add(container);
 	}
