@@ -24,18 +24,6 @@ import javatex.field.JTIntField;
  *
  */
 public final class MultiplicationExample extends JTProblemFrame {
-	public static void main(String[] args) {
-		JTDocument docWme = new JTDocument();
-		MultiplicationExample me = new MultiplicationExample(22, 9);
-
-		JFrame frame = new JFrame("Multiplication Example");
-		frame.getContentPane().add(me.toGUI());
-
-		frame.pack();
-		frame.setVisible(true);
-	}
-
-
 	public MultiplicationExample() {
 		this(1,1);
 	}
@@ -102,15 +90,18 @@ public final class MultiplicationExample extends JTProblemFrame {
 				"a \\times b = a + ... + a \\; (b\\text{ times})");
 
 		int sum = a;
-		b--;
+		int numTimes = b;
+		numTimes--;
 
-		while (b >= 0) {
+		boolean shownAtimesB = false;
+		while (numTimes >= 0) {
 			// each subsequent line adds the first two terms and maintains the rest.
-			String eqnLine = "= " + sum;
-			for (int i = 0; i < b; i++)
+			String eqnLine = (numTimes == 0 ? "\\therefore "+a+" \\times "+b : "") + (shownAtimesB ? "" : ""+a+" \\times "+b) + " = " + sum;
+			shownAtimesB = true;
+			for (int i = 0; i < numTimes; i++)
 				eqnLine += "+" + a;
 			sum += a;
-			b--;
+			numTimes--;
 			math.addEquationLine(eqnLine);
 		}
 

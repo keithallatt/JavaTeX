@@ -113,7 +113,7 @@ public class Align extends JTSnippet {
 
 	@Override
 	public JTPackage[] getDependencies() {
-		return new JTPackage[] { new JTPackage("amsmath") };
+		return new JTPackage[] { new JTPackage("amsmath"), new JTPackage("amssymb") };
 	}
 
 	/**

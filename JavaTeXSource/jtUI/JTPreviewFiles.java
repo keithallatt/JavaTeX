@@ -1,6 +1,7 @@
 package jtUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
@@ -66,6 +67,10 @@ public class JTPreviewFiles extends JPanel {
 		if (lineCounter != 0) chunks[chunkCounter] = currentChunk;
 
 		JTabbedPane tabs = new JTabbedPane();
+		
+		tabs.setBackground(new Color(83, 83, 83));
+		tabs.setForeground(new Color(255, 255, 255));
+
 
 		// each chunk is formatted as
 		/*

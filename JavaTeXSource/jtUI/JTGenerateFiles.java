@@ -15,6 +15,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -76,10 +77,11 @@ public class JTGenerateFiles extends JPanel {
 				JTPreviewFiles filePreview = new JTPreviewFiles(parentUI.returnDocument(), 30, new Dimension(800,600));
 				
 				Object[] options = new Object[] {"Save", "Back to editor"};
+				 
 				
 				int result = JOptionPane.showOptionDialog(null,
 						filePreview,
-                        "JOptionPane Example : ",
+                        "Preview TeX Output ",
                         JOptionPane.OK_CANCEL_OPTION,
                         JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 				

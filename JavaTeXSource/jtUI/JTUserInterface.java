@@ -21,22 +21,6 @@ import javatex.presets.MultiplicationExample;
  *
  */
 public class JTUserInterface extends JPanel {
-	public static void main(String[] args) {
-		JFrame frame = new JFrame("JavaTeX");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		JTUserInterface jtui = new JTUserInterface();
-
-		frame.getContentPane().add(jtui);
-
-		frame.pack();
-		frame.setVisible(true);
-
-		frame.setMinimumSize(new Dimension(800, 620));
-		frame.setMaximumSize(new Dimension(800, 620));
-
-	}
-
 	private JTProblemFrame currentProblemFrame;
 
 	private JPanel problemFrameSelect, problemFrameFieldInput, editWindow, buttonWindow;
