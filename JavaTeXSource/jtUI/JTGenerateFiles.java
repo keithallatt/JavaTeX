@@ -15,7 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
@@ -123,7 +122,8 @@ public class JTGenerateFiles extends JPanel {
 			outputStream.close();
 
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			throw new JTUIErrorDialog(this, "Error Generating LaTeX", e1);
+
 		}
 
 	}

@@ -1,4 +1,4 @@
-package javatex.field;
+package parameters;
 
 import javax.swing.JPanel;
 

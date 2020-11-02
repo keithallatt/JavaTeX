@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import javatex.field.JTField;
+import parameters.JTField;
 
 /**
  * Represents a bare problem framework, that will allow a named set of inputs
@@ -31,9 +31,10 @@ public abstract class JTProblemFrame extends JTSnippet {
 	}
 
 	/**
-	 * Create a ProblemFrame with a particular snippet type. 
+	 * Create a ProblemFrame with a particular snippet type.
 	 * 
-	 * @param type: The snippet type to use.
+	 * @param type:
+	 *            The snippet type to use.
 	 */
 	public JTProblemFrame(SnippetType type) {
 		super(type);
@@ -48,4 +49,12 @@ public abstract class JTProblemFrame extends JTSnippet {
 	 * @return the container of JTField input containers.
 	 */
 	public abstract JPanel toGUI();
+
+	/**
+	 * Give a description about the problem frame, to display to the user when
+	 * editing. Should be relatively short.
+	 * 
+	 * @return a description of the problem frame.
+	 */
+	public abstract String getDescription();
 }

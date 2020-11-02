@@ -2,16 +2,14 @@ package javatex.presets;
 
 import java.awt.GridLayout;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import javatex.JTProblemFrame;
-import javatex.JTDocument;
 import javatex.JTSnippet;
 import javatex.envrn.Align;
 import javatex.envrn.Paragraph;
-import javatex.field.JTField;
-import javatex.field.JTIntField;
+import parameters.JTField;
+import parameters.JTIntField;
 
 /**
  * Represents an example problem frame, in which multiplication is represented
@@ -23,6 +21,7 @@ import javatex.field.JTIntField;
  * @version 2020-10-28
  *
  */
+@Preset(presetName = "Multiplication Example")
 public final class MultiplicationExample extends JTProblemFrame {
 	public MultiplicationExample() {
 		this(1,1);
@@ -112,5 +111,10 @@ public final class MultiplicationExample extends JTProblemFrame {
 
 		return String.join("\n\n", new String[] {
 				explanation.convert(), math.convert() });
+	}
+
+	@Override
+	public String getDescription() {
+		return "<html>Show the process of multiplying <i>a</i> by <i>b</i>.</html>";
 	}
 }

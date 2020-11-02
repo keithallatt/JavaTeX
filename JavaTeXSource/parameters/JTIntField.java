@@ -1,4 +1,4 @@
-package javatex.field;
+package parameters;
 
 import java.awt.Component;
 import java.awt.Dimension;

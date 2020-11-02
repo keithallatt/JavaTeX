@@ -3,14 +3,12 @@ package jtUI;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import javatex.JTDocument;
-import javatex.JTProblemFrame;
 import javatex.presets.MultiplicationExample;
 
 /**
@@ -21,18 +19,21 @@ import javatex.presets.MultiplicationExample;
  *
  */
 public class JTUserInterface extends JPanel {
-	private JTProblemFrame currentProblemFrame;
-
 	private JPanel problemFrameSelect, problemFrameFieldInput, editWindow, buttonWindow;
 
+	// temporary, until document selector implemented
+	private JTDocument doc;
+
+	
 	public JTUserInterface() {
 		// create a new UI feel
-
+		doc = new JTDocument();
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+			throw new JTUIErrorDialog(this, "Error setting Look and Feel", e);
 		}
 		UIManager.put("TabbedPane.selected", new Color(25, 100, 25));
 
@@ -41,11 +42,8 @@ public class JTUserInterface extends JPanel {
 		container.setBackground(new Color(83, 83, 83));
 		container.setForeground(new Color(255, 255, 255));
 
-		// temporary
-		currentProblemFrame = new MultiplicationExample();
-
-		problemFrameSelect = new JPanel();
-		problemFrameFieldInput = new JPanel();
+		problemFrameSelect = new JTPresetLoading(this);
+		problemFrameFieldInput = new JTPresetEditing(this, new MultiplicationExample());
 		editWindow = new JPanel();
 		buttonWindow = new JTGenerateFiles(this);
 
@@ -55,7 +53,7 @@ public class JTUserInterface extends JPanel {
 		container.setMinimumSize(new Dimension(500, 500));
 		container.setPreferredSize(new Dimension(800, 600));
 
-		problemFrameFieldInput.add(currentProblemFrame.toGUI());
+		
 
 		container.addTab("Preset Selection", null, problemFrameSelect,
 				"Select a preset document");
@@ -77,8 +75,6 @@ public class JTUserInterface extends JPanel {
 	 * @return
 	 */
 	public JTDocument returnDocument() {
-		JTDocument doc = new JTDocument();
-		doc.addSnippet(currentProblemFrame);
 		return doc;
 	}
 }

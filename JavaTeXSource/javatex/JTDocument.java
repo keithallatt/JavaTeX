@@ -2,8 +2,6 @@ package javatex;
 
 import java.util.HashSet;
 
-import javax.xml.*;
-
 /**
  * Container for a set of problem sets or snippets. This object will contain a
  * set of these and
