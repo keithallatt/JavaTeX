@@ -21,8 +21,6 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 public class JTUIErrorDialog extends RuntimeException {
-	public static void main(String[]args) {throw new JTUIErrorDialog(null, "UWU Mmistakke", new RuntimeException("this is the error")); }
-	
 	URI uri;
 
 	public JTUIErrorDialog(JComponent parent, String name, Throwable error) {
@@ -33,7 +31,7 @@ public class JTUIErrorDialog extends RuntimeException {
 		JLabel message = new JLabel("<html>If this error dialog has appeared, <br/>"
 				+ "please save this error report and submit it <br/> as an issue on Github</html>");
 
-		JButton button = new JButton("<html><a>Here</a></html>");
+		JButton button = new JButton("<html><a>Issues Page</a></html>");
 
 		try {
 			uri = new URI("https://github.com/keithallatt/JavaTeX/issues/new");

@@ -23,6 +23,10 @@ public class JTUserInterface extends JPanel {
 
 	// temporary, until document selector implemented
 	private JTDocument doc;
+	
+	// underscores in case these shadow something in JPanel
+	private Dimension minimumSize;
+	private Dimension preferredSize;
 
 	
 	public JTUserInterface() {
@@ -37,21 +41,29 @@ public class JTUserInterface extends JPanel {
 		}
 		UIManager.put("TabbedPane.selected", new Color(25, 100, 25));
 
+		minimumSize = new Dimension(500,500);
+		preferredSize = new Dimension(800,600);
+		
+		setMinimumSize(minimumSize);
+		setPreferredSize(preferredSize);
+
+		
 		JTabbedPane container = new JTabbedPane();
 
 		container.setBackground(new Color(83, 83, 83));
 		container.setForeground(new Color(255, 255, 255));
 
+		
 		problemFrameSelect = new JTPresetLoading(this);
 		problemFrameFieldInput = new JTPresetEditing(this, new MultiplicationExample());
 		editWindow = new JPanel();
 		buttonWindow = new JTGenerateFiles(this);
 
-		setMinimumSize(new Dimension(500, 500));
-		setPreferredSize(new Dimension(800, 600));
 
-		container.setMinimumSize(new Dimension(500, 500));
-		container.setPreferredSize(new Dimension(800, 600));
+		
+		
+		container.setMinimumSize(minimumSize);
+		container.setPreferredSize(preferredSize);
 
 		
 
@@ -76,5 +88,13 @@ public class JTUserInterface extends JPanel {
 	 */
 	public JTDocument returnDocument() {
 		return doc;
+	}
+
+	public Dimension getPrefSize() {
+		return preferredSize;
+	}
+
+	public Dimension getMinSize() {
+		return minimumSize;
 	}
 }

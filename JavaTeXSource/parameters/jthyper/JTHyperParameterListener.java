@@ -1,14 +1,34 @@
 package parameters.jthyper;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.EventListener;
 import java.util.HashSet;
 import java.util.Hashtable;
 
 import parameters.JTField;
 
-public class JTHyperParameterListener implements EventListener {
+public class JTHyperParameterListener implements ActionListener {
+	
+	
+	public JTHyperParameterListener() {
+		
+	}
+	
+	
+	/**
+	 * Only going to be applied to 
+	 * 
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+	
+	
+	
+	
 	class JTFieldDictionary<H, F>
 			extends Hashtable<JTHyperParameter<H>, ArrayList<JTField<F>>> {
 
@@ -65,11 +85,12 @@ public class JTHyperParameterListener implements EventListener {
 						hp.add(h);
 					}
 				}
+				
+				reverse.put(f, hp);
 			}
 
 			return reverse;
 		}
 
 	}
-
 }

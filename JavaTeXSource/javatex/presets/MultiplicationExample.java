@@ -21,7 +21,6 @@ import parameters.jtfield.JTIntField;
  * @version 2020-10-28
  *
  */
-@Preset(presetName = "Multiplication Example")
 public final class MultiplicationExample extends JTProblemFrame {
 	public MultiplicationExample() {
 		this(1,1);

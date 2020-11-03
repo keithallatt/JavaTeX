@@ -31,6 +31,7 @@ public abstract class JTProblemFrame extends JTSnippet {
 	 */
 	public JTProblemFrame() {
 		super();
+
 		fields = new ArrayList<JTField<?>>();
 	}
 
@@ -61,4 +62,5 @@ public abstract class JTProblemFrame extends JTSnippet {
 	 * @return a description of the problem frame.
 	 */
 	public abstract String getDescription();
+	
 }

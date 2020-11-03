@@ -22,8 +22,7 @@ public abstract class JTField<T> {
 
 	protected JPanel inputFields;
 
-	protected static Dimension inputDimensions = new Dimension(300,
-			50);
+	protected static Dimension inputDimensions = new Dimension(300, 50);
 
 	/**
 	 * Create a JTField with a default object value.
@@ -40,7 +39,9 @@ public abstract class JTField<T> {
 
 	/**
 	 * Generate a JPanel containing the appropriate labels and input fields in order
-	 * to create an object of type T.
+	 * to create an object of type T. Ensure that the global variable inputFields is
+	 * assigned this generated object so that the method generateObjectFromInput()
+	 * functions correctly.
 	 * 
 	 * @return The JPanel container for this JTField's input fields.
 	 */
@@ -53,9 +54,9 @@ public abstract class JTField<T> {
 	 * @return An object of type T defined by this JTField's input field.
 	 */
 	public abstract T generateObjectFromInput();
-	
+
 	//// Setters and Getters.
-	
+
 	public void setObjectValue(T object) {
 		objectValue = object;
 	}
@@ -71,7 +72,7 @@ public abstract class JTField<T> {
 	public String getFieldName() {
 		return fieldName;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		// Needed to be used in hash sets.
