@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import parameters.JTField;
-import parameters.JTHyperParameter;
+import parameters.jthyper.JTHyperParameter;
 
 /**
  * Represents a bare problem framework, that will allow a named set of inputs
@@ -20,6 +20,8 @@ public abstract class JTProblemFrame extends JTSnippet {
 	 * Need a set of inputs, named, such that the convert function can take in the
 	 * inputs, calculate the output (to the problem) and generate a LaTeXSnippet
 	 * that displays all work done.
+	 * 
+	 * Also need a list of hyper parameters (use Observer / Observable model)
 	 */
 	protected ArrayList<JTField<?>> fields;
 	protected ArrayList<JTHyperParameter<?>> hyperparameters;

@@ -1,6 +1,8 @@
-package parameters;
+package parameters.jtfield;
 
 import javax.swing.JPanel;
+
+import parameters.JTField;
 
 /**
  * JTField implemented for floating point decimal input fields. Uses a text

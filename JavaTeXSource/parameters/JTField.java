@@ -71,4 +71,10 @@ public abstract class JTField<T> {
 	public String getFieldName() {
 		return fieldName;
 	}
+	
+	@Override
+	public int hashCode() {
+		// Needed to be used in hash sets.
+		return fieldName.hashCode();
+	}
 }

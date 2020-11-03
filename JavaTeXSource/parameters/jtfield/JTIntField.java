@@ -1,4 +1,4 @@
-package parameters;
+package parameters.jtfield;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+
+import parameters.JTField;
 
 /**
  * JTField implemented for integer input fields. Uses a spinner object to

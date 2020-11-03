@@ -1,6 +1,8 @@
-package parameters;
+package parameters.jtfield;
 
 import javax.swing.JPanel;
+
+import parameters.JTField;
 
 /**
  * JTField implemented for a choice or decision. Uses radio buttons to

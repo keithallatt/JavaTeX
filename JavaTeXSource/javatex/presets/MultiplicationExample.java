@@ -9,7 +9,7 @@ import javatex.JTSnippet;
 import javatex.envrn.Align;
 import javatex.envrn.Paragraph;
 import parameters.JTField;
-import parameters.JTIntField;
+import parameters.jtfield.JTIntField;
 
 /**
  * Represents an example problem frame, in which multiplication is represented
