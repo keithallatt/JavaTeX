@@ -1,5 +1,5 @@
 package parameters;
 
-public class JTHyperParameter {
+public class JTHyperParameter<T> {
 
 }

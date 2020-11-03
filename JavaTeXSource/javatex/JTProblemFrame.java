@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import parameters.JTField;
+import parameters.JTHyperParameter;
 
 /**
  * Represents a bare problem framework, that will allow a named set of inputs
@@ -21,6 +22,7 @@ public abstract class JTProblemFrame extends JTSnippet {
 	 * that displays all work done.
 	 */
 	protected ArrayList<JTField<?>> fields;
+	protected ArrayList<JTHyperParameter<?>> hyperparameters;
 
 	/**
 	 * Create a generic ProblemFrame.

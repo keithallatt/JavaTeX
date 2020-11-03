@@ -1,0 +1,9 @@
+{
+	"presets" : [
+	{
+		"name" : "Multiplication Example",
+		"classpath": "javatex.presets.MultiplicationExample",
+		"version" : "1.1"
+	}
+	]
+}
