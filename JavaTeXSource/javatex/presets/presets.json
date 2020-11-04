@@ -3,6 +3,10 @@
 	{
 		"name" : "Multiplication Example",
 		"classpath": "javatex.presets.MultiplicationExample"
+	},
+	{
+		"name" : "LaTeX Example",
+		"classpath": "javatex.presets.LaTeXExample"
 	}
 	]
 }

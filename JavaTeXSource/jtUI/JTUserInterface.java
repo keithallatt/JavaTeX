@@ -9,6 +9,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import javatex.JTDocument;
+import javatex.JTProblemFrame;
 import javatex.presets.MultiplicationExample;
 
 /**
@@ -19,20 +20,24 @@ import javatex.presets.MultiplicationExample;
  *
  */
 public class JTUserInterface extends JPanel {
-	private JPanel problemFrameSelect, problemFrameFieldInput, editWindow, buttonWindow;
+	private JTPresetLoading problemFrameSelect;
+	private JTPresetEditing problemFrameFieldInput;
+	private JPanel editWindow;
+	private JTGenerateFiles buttonWindow;
 
 	// temporary, until document selector implemented
 	private JTDocument doc;
-	
+
 	// underscores in case these shadow something in JPanel
 	private Dimension minimumSize;
 	private Dimension preferredSize;
-
 	
+	private JTabbedPane tabContainer;
+
 	public JTUserInterface() {
 		// create a new UI feel
 		doc = new JTDocument();
-		
+
 		try {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
@@ -41,44 +46,37 @@ public class JTUserInterface extends JPanel {
 		}
 		UIManager.put("TabbedPane.selected", new Color(25, 100, 25));
 
-		minimumSize = new Dimension(500,500);
-		preferredSize = new Dimension(800,600);
-		
+		minimumSize = new Dimension(500, 500);
+		preferredSize = new Dimension(800, 600);
+
 		setMinimumSize(minimumSize);
 		setPreferredSize(preferredSize);
 
-		
-		JTabbedPane container = new JTabbedPane();
+		tabContainer = new JTabbedPane();
 
-		container.setBackground(new Color(83, 83, 83));
-		container.setForeground(new Color(255, 255, 255));
+		tabContainer.setBackground(new Color(83, 83, 83));
+		tabContainer.setForeground(new Color(255, 255, 255));
 
-		
 		problemFrameSelect = new JTPresetLoading(this);
-		problemFrameFieldInput = new JTPresetEditing(this, new MultiplicationExample());
+		problemFrameFieldInput = new JTPresetEditing(this, null);
 		editWindow = new JPanel();
 		buttonWindow = new JTGenerateFiles(this);
 
+		tabContainer.setMinimumSize(minimumSize);
+		tabContainer.setPreferredSize(preferredSize);
 
-		
-		
-		container.setMinimumSize(minimumSize);
-		container.setPreferredSize(preferredSize);
-
-		
-
-		container.addTab("Preset Selection", null, problemFrameSelect,
+		tabContainer.addTab("Preset Selection", null, problemFrameSelect,
 				"Select a preset document");
 
-		container.addTab("Preset Configuration", null, problemFrameFieldInput,
+		tabContainer.addTab("Preset Configuration", null, problemFrameFieldInput,
 				"Set field variables");
 
-		container.addTab("Edit Document", null, editWindow,
+		tabContainer.addTab("Edit Document", null, editWindow,
 				"Edit problem frames in the document.");
 
-		container.addTab("Generate Files", null, buttonWindow, "Write LaTeX files");
+		tabContainer.addTab("Generate Files", null, buttonWindow, "Write LaTeX files");
 
-		add(container);
+		add(tabContainer);
 	}
 
 	/**
@@ -96,5 +94,13 @@ public class JTUserInterface extends JPanel {
 
 	public Dimension getMinSize() {
 		return minimumSize;
+	}
+
+	public void setCurrentProblemFrame(JTProblemFrame o) {
+		problemFrameFieldInput.setCurrentProblemFrame(o);
+	}
+
+	public JTabbedPane getTabContainer() {
+		return tabContainer;
 	}
 }

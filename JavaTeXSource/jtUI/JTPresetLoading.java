@@ -1,6 +1,8 @@
 package jtUI;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -8,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,6 +25,8 @@ import javatex.JTProblemFrame;
 public class JTPresetLoading extends JPanel {
 	private JTUserInterface parentUI;
 
+	private JSONObject root;
+
 	public JTPresetLoading(JTUserInterface parent) {
 		parentUI = parent;
 
@@ -34,13 +39,13 @@ public class JTPresetLoading extends JPanel {
 		try (Reader reader = new FileReader(System.getProperty("user.dir")
 				+ "/JavaTeXSource/javatex/presets/presets.json")) {
 
-			JSONObject jsonObject = (JSONObject) parser.parse(reader);
+			root = (JSONObject) parser.parse(reader);
 
-			JSONArray msg = (JSONArray) jsonObject.get("presets");
-			
+			JSONArray presets = (JSONArray) root.get("presets");
+
 			@SuppressWarnings("unchecked")
-			Iterator<JSONObject> iterator = msg.iterator();
-			
+			Iterator<JSONObject> iterator = presets.iterator();
+
 			while (iterator.hasNext()) {
 				JSONObject next = iterator.next();
 
@@ -90,11 +95,10 @@ public class JTPresetLoading extends JPanel {
 
 		// this size doesn't take into account having a slight marging
 		int margin = 30;
-		
+
 		// allows for buttons at the bottom later too.
 		scrollSize = new Dimension((int) (scrollSize.getWidth() - margin),
-				(int) (scrollSize.getHeight() - margin*3));
-
+				(int) (scrollSize.getHeight() - margin * 3));
 
 		Dimension insideSize = new Dimension((int) (scrollSize.getWidth() - margin),
 				(int) (scrollSize.getHeight() - margin));
@@ -116,6 +120,69 @@ public class JTPresetLoading extends JPanel {
 
 		add(scroll);
 
+		// now for buttons to select
+
+		JButton selectPreset = new JButton("Select Preset");
+
+		selectPreset.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String selected = listOfPresets.getSelectedValue();
+				System.out.println(selected);
+
+				JSONArray presets = (JSONArray) root.get("presets");
+
+				@SuppressWarnings("unchecked")
+				Iterator<JSONObject> iterator = presets.iterator();
+
+				while (iterator.hasNext()) {
+					JSONObject next = iterator.next();
+
+					String name = (String) next.get("name");
+
+					if (name.equals(selected)) {
+
+						String classpath = (String) next.get("classpath");
+
+						if (classpath == null) {
+							// no class path specified means that we should have
+							// parameters
+							// structure, and conversion scripts (to and from object).
+							
+						} else {
+							// if class path exists, then create an object
+							try {
+								Object o = Class.forName(classpath)
+										.getDeclaredConstructor().newInstance();
+
+								if (o instanceof JTProblemFrame) {
+									// set current problem frame
+									parentUI.setCurrentProblemFrame((JTProblemFrame) o);
+
+									// set to next tab.
+									parentUI.getTabContainer().setSelectedIndex(1);
+
+								} else {
+									throw new JTUIErrorDialog(parentUI,
+											"Preset doesn't extend JTProblemFrame",
+											new RuntimeException(
+													"Preset doesn't extend JTProblemFrame"));
+								}
+
+							} catch (InstantiationException | IllegalAccessException
+									| IllegalArgumentException | InvocationTargetException
+									| NoSuchMethodException | SecurityException
+									| ClassNotFoundException error) {
+								throw new JTUIErrorDialog(parentUI,
+										"Preset Initialization failed", error);
+							}
+						}
+					}
+				}
+			}
+		});
+
+		add(selectPreset);
 	}
 
 }
