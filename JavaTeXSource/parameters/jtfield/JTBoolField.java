@@ -2,8 +2,6 @@ package parameters.jtfield;
 
 import javax.swing.JPanel;
 
-import parameters.JTField;
-
 /**
  * JTField implemented for boolean input fields. Uses a check button to
  * capture input from the user.
@@ -19,6 +17,7 @@ public class JTBoolField extends JTField<Boolean> {
 
 	@Override
 	public JPanel generateInputField() {
+		if (inputFields != null)  return inputFields;
 
 		return null;
 	}

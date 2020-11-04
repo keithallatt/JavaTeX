@@ -1,4 +1,4 @@
-package parameters;
+package parameters.jtfield;
 
 import java.awt.Dimension;
 
@@ -20,7 +20,13 @@ public abstract class JTField<T> {
 	protected String fieldName;
 	protected T objectValue;
 
-	protected JPanel inputFields;
+	/*
+	 * Ensure that first line of generateInputField() is
+	 * 
+	 * if (inputFields != null) return inputFields;
+	 * 
+	 */
+	protected JPanel inputFields = null;
 
 	protected static Dimension inputDimensions = new Dimension(300, 50);
 
@@ -77,5 +83,12 @@ public abstract class JTField<T> {
 	public int hashCode() {
 		// Needed to be used in hash sets.
 		return fieldName.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		objectValue = generateObjectFromInput();
+		
+		return fieldName +": "+objectValue;
 	}
 }

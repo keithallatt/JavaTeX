@@ -1,6 +1,6 @@
 package parameters.jthyper;
 
-import parameters.JTField;
+import parameters.jtfield.JTField;
 
 public class JTHyperParameter<T> {
 	JTField<T> fieldRepr;

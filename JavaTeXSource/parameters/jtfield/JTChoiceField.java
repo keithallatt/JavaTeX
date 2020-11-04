@@ -2,8 +2,6 @@ package parameters.jtfield;
 
 import javax.swing.JPanel;
 
-import parameters.JTField;
-
 /**
  * JTField implemented for a choice or decision. Uses radio buttons to
  * capture input from the user.
@@ -19,6 +17,7 @@ class JTChoiceField extends JTField<String> {
 
 	@Override
 	public JPanel generateInputField() {
+		if (inputFields != null)  return inputFields;
 		
 		return null;
 	}

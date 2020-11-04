@@ -8,7 +8,7 @@ import javatex.JTProblemFrame;
 import javatex.JTSnippet;
 import javatex.envrn.Align;
 import javatex.envrn.Paragraph;
-import parameters.JTField;
+import parameters.jtfield.JTField;
 import parameters.jtfield.JTIntField;
 
 /**
@@ -59,17 +59,6 @@ public final class MultiplicationExample extends JTProblemFrame {
 			} else if (intF.getFieldName().equals("b")) {
 				b = intF.generateObjectFromInput();
 			}
-		}
-
-		// should ensure a and b are positive for this example.
-		a = Math.abs(a);
-		b = Math.abs(b);
-
-		// make the larger one a.
-		if (b > a) {
-			int t = a;
-			a = b;
-			b = t;
 		}
 
 		clearSnippets();

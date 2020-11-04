@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import parameters.JTField;
+import parameters.jtfield.JTField;
 import parameters.jthyper.JTHyperParameter;
 
 /**

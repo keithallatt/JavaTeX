@@ -1,6 +1,8 @@
 package javatex;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashSet;
 
 import javax.swing.Box;
@@ -9,9 +11,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import jtUI.JTUserInterface;
+import parameters.jtfield.JTField;
+
 /**
  * Container for a set of problem sets or snippets. This object will contain a
- * set of these and
+ * set of sub-snippets, for which each represents a portion of this document.
+ * 
+ * For generic snippets to be added from the GUI, we must have a snippet with a
+ * corresponding JTProblemFrame wrapper.
  * 
  * @author Keith Allatt
  * @version 2020-10-26
@@ -59,15 +67,22 @@ public class JTDocument extends JTSnippet {
 
 		String endEnv = "\n\\end{document}";
 
-		String repr= String.join("\n\n", new String[] { docClassStr.trim(), comment,
+		String repr = String.join("\n\n", new String[] { docClassStr.trim(), comment,
 				depends.trim(), startEnv, body.trim(), endEnv });
-		
-		
-		
+
 		return repr.replaceAll("\n{2,}", "\n\n");
 	}
 
-	public JPanel toGUI(int width) {
+	/**
+	 * Creates graphical user interface for editing document structure.
+	 * 
+	 * @param width:
+	 *            panel width of the parent component, used for setting this
+	 *            component's width.
+	 * @return The JPanel container for this document
+	 */
+	public JPanel toGUI(JTUserInterface parent) {
+		
 		JPanel containment = new JPanel();
 		JPanel panel = new JPanel();
 
@@ -77,12 +92,55 @@ public class JTDocument extends JTSnippet {
 		int panelHeight = -margin;
 
 		for (JTSnippet ss : subSnippets) {
+			// only consider problem frames.
+			if (!(ss instanceof JTProblemFrame)) continue;
+			
+			JTProblemFrame pf = (JTProblemFrame)ss;
+			
 			JPanel ssContainer = new JPanel();
 
-			JLabel name = new JLabel("" + ss.getClass());
+			String htmlName = "<html>" + ss.getClass();
+			for (JTField<?> f : pf.fields) {
+				
+				htmlName += "<br/>"+f;
+			}
+			htmlName += "</html>";
+			
+			JLabel name = new JLabel(htmlName);
+			
+			
 
 			JButton editSnip = new JButton("Edit");
 			JButton removeSnip = new JButton("Remove");
+
+			editSnip.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					/*
+					 * Need to: 
+					 * - Remove ss from subsnippets,
+					 * - Set current editting snippet to ss
+					 * - Set current tab to editing tab.
+					 */
+					subSnippets.remove(ss);
+					parent.setCurrentProblemFrame(pf);
+					parent.getTabContainer().setSelectedIndex(1);
+				}
+			});
+			
+			removeSnip.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					/*
+					 * Need to: 
+					 * - Remove ss from subsnippets,
+					 */
+					subSnippets.remove(ss);
+					panel.remove(ssContainer);
+					panel.revalidate();
+					panel.repaint();
+				}
+			});
 
 			ssContainer.add(name);
 			ssContainer.add(Box.createRigidArea(new Dimension(100, 15)));
@@ -93,14 +151,15 @@ public class JTDocument extends JTSnippet {
 
 			panelHeight += margin + ssContainer.getPreferredSize().height;
 		}
-		
-		
-		panel.setPreferredSize(new Dimension(width, panelHeight));
-		
+
+		panel.setPreferredSize(new Dimension(parent.getPreferredSize().width, panelHeight));
+
 		containment.add(panel);
-		
+
 		return containment;
 	}
+
+	// Setters
 
 	public void setProperty(DocumentClass.FontSize fontsize) {
 		docClass.fontsize = fontsize;

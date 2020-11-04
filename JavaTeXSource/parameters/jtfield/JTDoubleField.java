@@ -2,8 +2,6 @@ package parameters.jtfield;
 
 import javax.swing.JPanel;
 
-import parameters.JTField;
-
 /**
  * JTField implemented for floating point decimal input fields. Uses a text
  * field to capture input from the user. (Input is then parsed into a double).
@@ -20,6 +18,7 @@ public class JTDoubleField extends JTField<Double> {
 
 	@Override
 	public JPanel generateInputField() {
+		if (inputFields != null)  return inputFields;
 
 		return null;
 	}

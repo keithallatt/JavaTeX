@@ -7,7 +7,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 
-import parameters.JTField;
+import parameters.jtfield.JTField;
 
 public class JTHyperParameterListener implements ActionListener {
 	

@@ -70,6 +70,9 @@ public abstract class JTSnippet implements TeX, Serializable {
 		return subSnippets.remove(snip);
 	}
 
+	/**
+	 * Remove all snippets. Resets the contents completely.
+	 */
 	public void clearSnippets() {
 		subSnippets = new ArrayList<JTSnippet>();
 	}

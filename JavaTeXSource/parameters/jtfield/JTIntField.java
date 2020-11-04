@@ -9,8 +9,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import parameters.JTField;
-
 /**
  * JTField implemented for integer input fields. Uses a spinner object to
  * capture input from the user.
@@ -21,7 +19,7 @@ import parameters.JTField;
  */
 public final class JTIntField extends JTField<Integer> {
 	private Integer defaultVal, min, max, step;
-
+	
 	public JTIntField(String fn, Integer ov, Integer defaultVal,
 			Integer min, Integer max, Integer step) {
 		this(fn, ov);
@@ -39,6 +37,8 @@ public final class JTIntField extends JTField<Integer> {
 
 	@Override
 	public JPanel generateInputField() {
+		if (inputFields != null)  return inputFields;
+		
 		JLabel label = new JLabel(fieldName + ":");
 
 		int width = inputDimensions.width;

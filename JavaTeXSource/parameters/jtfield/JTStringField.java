@@ -2,8 +2,6 @@ package parameters.jtfield;
 
 import javax.swing.JPanel;
 
-import parameters.JTField;
-
 /**
  * JTField implemented for text input fields. Uses a text field to
  * capture input from the user.
