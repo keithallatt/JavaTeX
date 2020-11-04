@@ -1,8 +1,13 @@
 package jtUI;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -128,7 +133,6 @@ public class JTPresetLoading extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String selected = listOfPresets.getSelectedValue();
-				System.out.println(selected);
 
 				JSONArray presets = (JSONArray) root.get("presets");
 
@@ -148,7 +152,7 @@ public class JTPresetLoading extends JPanel {
 							// no class path specified means that we should have
 							// parameters
 							// structure, and conversion scripts (to and from object).
-							
+
 						} else {
 							// if class path exists, then create an object
 							try {
@@ -178,6 +182,38 @@ public class JTPresetLoading extends JPanel {
 							}
 						}
 					}
+				}
+			}
+		});
+
+		listOfPresets.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent evt) {
+				if (evt.getButton() != MouseEvent.BUTTON1) return;
+
+				if (evt.getSource() instanceof JList<?>) {
+					JList<?> list = (JList<?>) evt.getSource();
+					if (evt.getClickCount() == 2) {
+
+						// Double-click detected
+						Rectangle r = listOfPresets.getCellBounds(0,
+								listOfPresets.getLastVisibleIndex());
+						if (r != null && r.contains(evt.getPoint())) {
+							// should already be selected but if needed:
+							// int index = listOfPresets.locationToIndex(evt.getPoint());
+							selectPreset.doClick();
+						}
+
+					}
+				}
+			}
+		});
+
+		listOfPresets.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+					selectPreset.doClick();
 				}
 			}
 		});

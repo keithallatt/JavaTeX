@@ -45,7 +45,10 @@ public class JTPreviewFiles extends JPanel {
 		// bytes into any of the higher units (like 1024 bytes is exactly 1 kb)
 		if (numBytesRepr.matches("\\d+\\.0$"))
 			numBytesRepr = numBytesRepr.substring(0, numBytesRepr.indexOf("."));
-
+		else if (numBytesRepr.length() > 6)
+			numBytesRepr = numBytesRepr.substring(0,6);
+		
+		
 		// check to see
 
 		numBytesRepr += new String[] { " bytes", " KB", " MB", " GB", " TB", " PB",

@@ -2,9 +2,12 @@ package jtUI;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -22,15 +25,15 @@ public class JTPresetEditing extends JPanel {
 
 		updatePanelAfterChange();
 	}
-	
+
 	public void setCurrentProblemFrame(JTProblemFrame frame) {
 		currentProblemFrame = frame;
 		updatePanelAfterChange();
 	}
-	
+
 	private void updatePanelAfterChange() {
 		removeAll();
-		
+
 		JPanel container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
@@ -49,10 +52,48 @@ public class JTPresetEditing extends JPanel {
 
 		container.add(Box.createRigidArea(new Dimension(100, 15)));
 
-		if (currentProblemFrame != null)
-			container.add(currentProblemFrame.toGUI());
+		if (currentProblemFrame != null) container.add(currentProblemFrame.toGUI());
 
+
+		JButton back = new JButton("Back");
+		JButton next = new JButton("Next");
+
+		back.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// easy, just go back a page.
+				
+				// set to previous tab.
+				parentUI.getTabContainer().setSelectedIndex(1);
+
+			}
+		});
+		
+		next.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// when editing, if next, add to doc and set to null.
+				parentUI.addToDocument(currentProblemFrame);
+				
+				currentProblemFrame = null;
+				
+				updatePanelAfterChange();
+				
+				// set to next tab.
+				parentUI.getTabContainer().setSelectedIndex(2);
+
+			}
+		});
+		
+		JPanel buttonContainer = new JPanel();
+		
+		buttonContainer.add(back);
+		buttonContainer.add(next);
+
+		container.add(buttonContainer);
+		
 		add(container);
+
 		
 		revalidate();
 	}

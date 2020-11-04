@@ -31,13 +31,13 @@ public class JTDocument extends JTSnippet {
 	public String convert() {
 		String docClassStr = docClass.convert();
 
-		String startEnv = "\\begin{document}";
+		String startEnv = "\\begin{document}\n";
 
 		// need to generate body
 		String body = "";
 
 		for (JTSnippet ss : subSnippets)
-			body += "\n" + ss.convert();
+			body += "\n\n" + ss.convert();
 
 		// get dependencies after generating bodies so each class can ensure what
 		// packages they need.
@@ -48,12 +48,12 @@ public class JTDocument extends JTSnippet {
 		for (JTPackage ltp : dependencies)
 			depends += "\n" + ltp.convert();
 
-		String endEnv = "\\end{document}";
+		String endEnv = "\n\\end{document}";
 
 		return String.join("\n",
 				new String[] { docClassStr.trim(), depends.trim(),
-						startEnv.trim(), body.trim(),
-						endEnv.trim() });
+						startEnv, body.trim(),
+						endEnv });
 	}
 
 	/**

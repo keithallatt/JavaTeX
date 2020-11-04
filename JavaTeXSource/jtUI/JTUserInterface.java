@@ -10,7 +10,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import javatex.JTDocument;
 import javatex.JTProblemFrame;
-import javatex.presets.MultiplicationExample;
+import javatex.JTSnippet;
 
 /**
  * Graphical User Interface to interact with the JavaTeX framework.
@@ -77,6 +77,10 @@ public class JTUserInterface extends JPanel {
 		tabContainer.addTab("Generate Files", null, buttonWindow, "Write LaTeX files");
 
 		add(tabContainer);
+	}
+	
+	public void addToDocument(JTSnippet snip) {
+		doc.getSubSnippets().add(snip);
 	}
 
 	/**
