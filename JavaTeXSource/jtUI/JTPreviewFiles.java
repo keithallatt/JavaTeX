@@ -26,27 +26,23 @@ public class JTPreviewFiles extends JPanel {
 		String docContents = doc.convert();
 
 		// num bytes.
-		float numBytes = docContents.getBytes().length;
-
+		int numBytes = docContents.getBytes().length;
+		int rawBytes = numBytes;
+		
 		// B, KB, MB, GB, TB, PB, EB.
 		int stepsUp = 0;
 
 		for (int i = 0; i < 6; i++)
 			if (numBytes >= 1024) {
 				stepsUp++;
-				numBytes /= 1024f;
+				numBytes /= 1024;
 			}
-		numBytes = (100 * numBytes) / 100f;
 
 		String numBytesRepr = "" + numBytes; // B for bytes
 
 		// ensures that there is a period in the representation
 		// this only happens when there is an exact or near exact groupings of
 		// bytes into any of the higher units (like 1024 bytes is exactly 1 kb)
-		if (numBytesRepr.matches("\\d+\\.0$"))
-			numBytesRepr = numBytesRepr.substring(0, numBytesRepr.indexOf("."));
-		else if (numBytesRepr.length() > 6)
-			numBytesRepr = numBytesRepr.substring(0,6);
 		
 		
 		// check to see
@@ -66,6 +62,6 @@ public class JTPreviewFiles extends JPanel {
 		scrollPane.setPreferredSize(size);
 		add(scrollPane, BorderLayout.NORTH);
 
-		add(new JLabel("File Size: " + numBytesRepr), BorderLayout.SOUTH);
+		add(new JLabel("File Size: " + numBytesRepr+ " ("+rawBytes+" bytes)"), BorderLayout.SOUTH);
 	}
 }

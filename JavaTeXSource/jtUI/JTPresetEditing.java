@@ -1,16 +1,19 @@
 package jtUI;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 
 import javatex.JTProblemFrame;
 
@@ -33,6 +36,11 @@ public class JTPresetEditing extends JPanel {
 
 	private void updatePanelAfterChange() {
 		removeAll();
+		
+		setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createLineBorder(Color.black),
+				"Edit Preset", TitledBorder.LEFT,
+				TitledBorder.ABOVE_TOP));
 
 		JPanel container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
@@ -56,7 +64,7 @@ public class JTPresetEditing extends JPanel {
 
 
 		JButton back = new JButton("Back");
-		JButton next = new JButton("Next");
+		JButton next = new JButton("Add");
 
 		back.addActionListener(new ActionListener() {
 			@Override
@@ -78,6 +86,7 @@ public class JTPresetEditing extends JPanel {
 				currentProblemFrame = null;
 				
 				updatePanelAfterChange();
+				parentUI.getEditWindow().updatePanelAfterChange();
 				
 				// set to next tab.
 				parentUI.getTabContainer().setSelectedIndex(2);

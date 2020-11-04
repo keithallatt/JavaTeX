@@ -1,5 +1,6 @@
 package jtUI;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -14,11 +15,13 @@ import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -34,6 +37,12 @@ public class JTPresetLoading extends JPanel {
 
 	public JTPresetLoading(JTUserInterface parent) {
 		parentUI = parent;
+		
+		setBorder(BorderFactory.createTitledBorder(
+				BorderFactory.createLineBorder(Color.black),
+				"Choose a Preset", TitledBorder.LEFT,
+				TitledBorder.ABOVE_TOP));
+
 
 		JScrollPane scroll = new JScrollPane();
 
@@ -189,23 +198,22 @@ public class JTPresetLoading extends JPanel {
 		listOfPresets.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent evt) {
-				if (evt.getButton() != MouseEvent.BUTTON1) return;
+				if (evt.getButton() == MouseEvent.BUTTON1)
+					if (evt.getSource() instanceof JList<?>) {
+						if (evt.getClickCount() == 2) {
 
-				if (evt.getSource() instanceof JList<?>) {
-					JList<?> list = (JList<?>) evt.getSource();
-					if (evt.getClickCount() == 2) {
+							// Double-click detected
+							Rectangle r = listOfPresets.getCellBounds(0,
+									listOfPresets.getLastVisibleIndex());
+							if (r != null && r.contains(evt.getPoint())) {
+								// should already be selected but if needed:
+								// int index =
+								// listOfPresets.locationToIndex(evt.getPoint());
+								selectPreset.doClick();
+							}
 
-						// Double-click detected
-						Rectangle r = listOfPresets.getCellBounds(0,
-								listOfPresets.getLastVisibleIndex());
-						if (r != null && r.contains(evt.getPoint())) {
-							// should already be selected but if needed:
-							// int index = listOfPresets.locationToIndex(evt.getPoint());
-							selectPreset.doClick();
 						}
-
 					}
-				}
 			}
 		});
 

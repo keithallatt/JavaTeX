@@ -22,7 +22,7 @@ import javatex.JTSnippet;
 public class JTUserInterface extends JPanel {
 	private JTPresetLoading problemFrameSelect;
 	private JTPresetEditing problemFrameFieldInput;
-	private JPanel editWindow;
+	private JTDocumentEditing editWindow;
 	private JTGenerateFiles buttonWindow;
 
 	// temporary, until document selector implemented
@@ -59,7 +59,7 @@ public class JTUserInterface extends JPanel {
 
 		problemFrameSelect = new JTPresetLoading(this);
 		problemFrameFieldInput = new JTPresetEditing(this, null);
-		editWindow = new JPanel();
+		editWindow = new JTDocumentEditing(this);
 		buttonWindow = new JTGenerateFiles(this);
 
 		tabContainer.setMinimumSize(minimumSize);
@@ -106,5 +106,12 @@ public class JTUserInterface extends JPanel {
 
 	public JTabbedPane getTabContainer() {
 		return tabContainer;
+	}
+
+	/**
+	 * @return The editWindow.
+	 */
+	public JTDocumentEditing getEditWindow() {
+		return editWindow;
 	}
 }
