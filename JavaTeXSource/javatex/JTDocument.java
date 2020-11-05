@@ -3,14 +3,17 @@ package javatex;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.HashSet;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import jtUI.JTPreviewFiles;
 import jtUI.JTUserInterface;
 import parameters.jtfield.JTField;
 
@@ -82,7 +85,7 @@ public class JTDocument extends JTSnippet {
 	 * @return The JPanel container for this document
 	 */
 	public JPanel toGUI(JTUserInterface parent) {
-		
+
 		JPanel containment = new JPanel();
 		JPanel panel = new JPanel();
 
@@ -94,46 +97,46 @@ public class JTDocument extends JTSnippet {
 		for (JTSnippet ss : subSnippets) {
 			// only consider problem frames.
 			if (!(ss instanceof JTProblemFrame)) continue;
-			
-			JTProblemFrame pf = (JTProblemFrame)ss;
-			
+
+			JTProblemFrame pf = (JTProblemFrame) ss;
+
 			JPanel ssContainer = new JPanel();
 
 			String htmlName = "<html>" + ss.getClass();
 			for (JTField<?> f : pf.fields) {
-				
-				htmlName += "<br/>"+f;
+
+				htmlName += "<br/>" + f;
 			}
 			htmlName += "</html>";
-			
+
 			JLabel name = new JLabel(htmlName);
-			
-			
 
 			JButton editSnip = new JButton("Edit");
 			JButton removeSnip = new JButton("Remove");
+			JButton previewSnip = new JButton("Preview");
+			JButton moveSnipUp = new JButton("<html>&uarr;</html>");
+			JButton moveSnipDown = new JButton("<html>&darr;</html>"); 
+			JButton other = new JButton("<html>...</html>"); 
 
 			editSnip.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					/*
-					 * Need to: 
-					 * - Remove ss from subsnippets,
-					 * - Set current editting snippet to ss
-					 * - Set current tab to editing tab.
+					 * Need to: Remove ss from subsnippets, set current editing snippet
+					 * to ss, then set current tab to editing tab.
 					 */
 					subSnippets.remove(ss);
 					parent.setCurrentProblemFrame(pf);
 					parent.getTabContainer().setSelectedIndex(1);
 				}
 			});
-			
+
 			removeSnip.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					/*
-					 * Need to: 
-					 * - Remove ss from subsnippets,
+					 * Need to: Remove ss from subsnippets, remove the subsnippet panel,
+					 * and revalidate the container.
 					 */
 					subSnippets.remove(ss);
 					panel.remove(ssContainer);
@@ -142,17 +145,87 @@ public class JTDocument extends JTSnippet {
 				}
 			});
 
+			previewSnip.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JTPreviewFiles filePreview = new JTPreviewFiles(ss, 30,
+							new Dimension(800, 600));
+
+					Object[] options = new Object[] { "Back to editor" };
+
+					JOptionPane.showOptionDialog(null, filePreview, "Preview TeX Output",
+							JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+							options, options[0]);
+				}
+			});
+
+			moveSnipUp.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int i1 = subSnippets.indexOf(ss);
+
+					try {
+						// try to swap, if fails, don't worry.
+						Collections.swap(subSnippets, i1, i1 - 1);
+
+						// need to remove ss at i1 and place it in i1-1
+						panel.remove(ssContainer);
+						panel.add(ssContainer, i1 - 1);
+
+						panel.revalidate();
+						panel.repaint();
+					} catch (IndexOutOfBoundsException aioobe) {
+						// failure to swap means that ss was at the top
+					}
+				}
+			});
+
+			moveSnipDown.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int i1 = subSnippets.indexOf(ss);
+
+					try {
+						// try to swap, if fails, don't worry.
+						Collections.swap(subSnippets, i1, i1 + 1);
+
+						panel.remove(ssContainer);
+						panel.add(ssContainer, i1 + 1);
+
+						panel.revalidate();
+						panel.repaint();
+					} catch (IndexOutOfBoundsException aioobe) {
+						// failure to swap means that ss was at the bottom
+					}
+				}
+			});
+
+			int nameHeight = name.getPreferredSize().height + 10;
+			int width = parent.getPreferredSize().width - 100;
+			width -= editSnip.getPreferredSize().width;
+			width -= removeSnip.getPreferredSize().width;
+			width -= previewSnip.getPreferredSize().width;
+			width -= moveSnipUp.getPreferredSize().width;
+			width -= moveSnipDown.getPreferredSize().width;
+			width -= other.getPreferredSize().width;
+			name.setPreferredSize(new Dimension(width, nameHeight));
+
 			ssContainer.add(name);
-			ssContainer.add(Box.createRigidArea(new Dimension(100, 15)));
+			ssContainer.add(Box.createRigidArea(new Dimension(50, 15)));
 			ssContainer.add(editSnip);
 			ssContainer.add(removeSnip);
+			ssContainer.add(previewSnip);
+			ssContainer.add(moveSnipUp);
+			ssContainer.add(moveSnipDown);
+			ssContainer.add(other);
 
 			panel.add(ssContainer);
 
 			panelHeight += margin + ssContainer.getPreferredSize().height;
 		}
 
-		panel.setPreferredSize(new Dimension(parent.getPreferredSize().width, panelHeight));
+		panel.setPreferredSize(
+				new Dimension(parent.getPreferredSize().width, panelHeight));
 
 		containment.add(panel);
 

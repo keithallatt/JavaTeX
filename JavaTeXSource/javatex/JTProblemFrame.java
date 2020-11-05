@@ -24,7 +24,7 @@ public abstract class JTProblemFrame extends JTSnippet {
 	 * Also need a list of hyper parameters (use Observer / Observable model)
 	 */
 	protected ArrayList<JTField<?>> fields;
-	protected ArrayList<JTHyperParameter<?>> hyperparameters;
+	protected ArrayList<JTHyperParameter> hyperparameters;
 
 	/**
 	 * Create a generic ProblemFrame.
@@ -33,6 +33,7 @@ public abstract class JTProblemFrame extends JTSnippet {
 		super();
 
 		fields = new ArrayList<JTField<?>>();
+		hyperparameters = new ArrayList<JTHyperParameter>();
 	}
 
 	/**

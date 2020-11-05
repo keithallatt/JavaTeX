@@ -7,30 +7,55 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 
+import jtUI.JTUIErrorDialog;
 import parameters.jtfield.JTField;
 
 public class JTHyperParameterListener implements ActionListener {
-	
-	
-	public JTHyperParameterListener() {
-		
+	private JTFieldDictionary<JTField<?>> fieldDictionary;
+
+	public JTHyperParameterListener(JTHyperParameter... hyperparams) {
+		fieldDictionary = new JTFieldDictionary<JTField<?>>();
+		for (JTHyperParameter hp : hyperparams)
+			fieldDictionary.trackHyper(hp);
 	}
-	
-	
+
 	/**
-	 * Only going to be applied to 
+	 * Only going to be applied to
 	 * 
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		// when an event is called,
+
+		Object source = e.getSource();
+
+		if (source instanceof JTHyperParameter) {
+			// if we have a valid change:
+			JTHyperParameter hp = (JTHyperParameter) source;
+
+			ArrayList<JTField<?>> hpDependencies = fieldDictionary.get(hp);
+			
+			if (hpDependencies != null)
+				for (JTField<?> field : hpDependencies)
+					field.notifyOfChange(hp);
+			
+		} else {
+			// non hyperparameter called this
+			throw new JTUIErrorDialog(null,
+					"HyperParameterListener action on non HyperParameter source",
+					new RuntimeException("Non HyperParameter: " + source.toString()));
+		}
 	}
 	
-	
-	
-	
-	class JTFieldDictionary<H, F>
-			extends Hashtable<JTHyperParameter<H>, ArrayList<JTField<F>>> {
+	public void track(JTHyperParameter hyper) {
+		fieldDictionary.trackHyper(hyper);
+	}
+	public void link(JTHyperParameter hyper, JTField<?> field) {
+		fieldDictionary.addDependency(hyper, field);
+	}
+
+	class JTFieldDictionary<T extends JTField<?>>
+			extends Hashtable<JTHyperParameter, ArrayList<T>> {
 
 		/**
 		 * Add's a dependency to this parameter listener. If the hyper parameter
@@ -43,12 +68,16 @@ public class JTHyperParameterListener implements ActionListener {
 		 * @return true if hyper is being tracked, and field is successfully added to
 		 *         it's tracking list.
 		 */
-		public boolean addDependency(JTHyperParameter<H> hyper, JTField<F> field) {
-			ArrayList<JTField<F>> hyperDepends = get(hyper);
+		public boolean addDependency(JTHyperParameter hyper, T field) {
+			ArrayList<T> hyperDepends = get(hyper);
 
 			if (hyperDepends == null) return false;
 
 			return hyperDepends.add(field);
+		}
+
+		public void trackHyper(JTHyperParameter hyper) {
+			if (get(hyper) == null) put(hyper, new ArrayList<T>());
 		}
 
 		/**
@@ -59,33 +88,33 @@ public class JTHyperParameterListener implements ActionListener {
 		 * 
 		 * @return the reverse dependency list.
 		 */
-		public Hashtable<JTField<F>, ArrayList<JTHyperParameter<H>>> reverseMap() {
-			Hashtable<JTField<F>, ArrayList<JTHyperParameter<H>>> reverse;
+		public Hashtable<T, ArrayList<JTHyperParameter>> reverseMap() {
+			Hashtable<T, ArrayList<JTHyperParameter>> reverse;
 
-			HashSet<JTField<F>> allFields = new HashSet<JTField<F>>();
+			HashSet<T> allFields = new HashSet<T>();
 
-			for (ArrayList<JTField<F>> fields : values()) {
+			for (ArrayList<T> fields : values()) {
 				allFields.addAll(fields);
 			}
 
-			reverse = new Hashtable<JTField<F>, ArrayList<JTHyperParameter<H>>>();
+			reverse = new Hashtable<T, ArrayList<JTHyperParameter>>();
 
-			for (ArrayList<JTField<F>> fields : values()) {
+			for (ArrayList<T> fields : values()) {
 				allFields.addAll(fields);
 			}
 
-			for (JTField<F> f : allFields) {
-				ArrayList<JTHyperParameter<H>> hp = new ArrayList<JTHyperParameter<H>>();
+			for (T f : allFields) {
+				ArrayList<JTHyperParameter> hp = new ArrayList<JTHyperParameter>();
 
-				Enumeration<JTHyperParameter<H>> allHyperParameters = keys();
+				Enumeration<JTHyperParameter> allHyperParameters = keys();
 
 				while (allHyperParameters.hasMoreElements()) {
-					JTHyperParameter<H> h = allHyperParameters.nextElement();
+					JTHyperParameter h = allHyperParameters.nextElement();
 					if (get(h).contains(f)) {
 						hp.add(h);
 					}
 				}
-				
+
 				reverse.put(f, hp);
 			}
 

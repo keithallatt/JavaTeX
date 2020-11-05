@@ -67,7 +67,6 @@ public class LaTeXExample extends JTProblemFrame {
 
 	@Override
 	public String getDescription() {
-
 		return "Add a snippet of text from LaTeX's wikipedia page.";
 	}
 

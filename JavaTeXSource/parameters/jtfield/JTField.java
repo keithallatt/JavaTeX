@@ -4,6 +4,8 @@ import java.awt.Dimension;
 
 import javax.swing.JPanel;
 
+import parameters.jthyper.JTHyperParameter;
+
 /**
  * Represents an input field for a given JavaTeX problem set.
  * 
@@ -61,6 +63,15 @@ public abstract class JTField<T> {
 	 */
 	public abstract T generateObjectFromInput();
 
+	/**
+	 * Notify this field with a change of hyper parameter.
+	 * 
+	 * @param changedValue
+	 */
+	public void notifyOfChange(JTHyperParameter changedValue) {
+		
+	}
+
 	//// Setters and Getters.
 
 	public void setObjectValue(T object) {
@@ -84,11 +95,11 @@ public abstract class JTField<T> {
 		// Needed to be used in hash sets.
 		return fieldName.hashCode();
 	}
-	
+
 	@Override
 	public String toString() {
 		objectValue = generateObjectFromInput();
-		
-		return fieldName +": "+objectValue;
+
+		return fieldName + ": " + objectValue;
 	}
 }

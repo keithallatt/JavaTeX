@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import javatex.JTDocument;
+import javatex.JTSnippet;
 
 /**
  * Create a preview option so users can view what code will be saved to disk. No
@@ -20,7 +20,7 @@ import javatex.JTDocument;
  *
  */
 public class JTPreviewFiles extends JPanel {
-	public JTPreviewFiles(JTDocument doc, int numLinesPerPage, Dimension size) {
+	public JTPreviewFiles(JTSnippet doc, int numLinesPerPage, Dimension size) {
 		setLayout(new BorderLayout());
 
 		String docContents = doc.convert();

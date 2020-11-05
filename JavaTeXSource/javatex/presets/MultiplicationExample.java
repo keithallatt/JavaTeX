@@ -23,15 +23,15 @@ import parameters.jtfield.JTIntField;
  */
 public final class MultiplicationExample extends JTProblemFrame {
 	public MultiplicationExample() {
-		this(1,1);
+		this(2,3);
 	}
 	
 	public MultiplicationExample(int a, int b) {
 		super(JTSnippet.SnippetType.MAT);
 
 		// set a=2, b=3 by default, a and b must be within 1 and 15 inclusive.
-		fields.add(new JTIntField("a", a, 2, 1, 15, 1));
-		fields.add(new JTIntField("b", a, 3, 1, 15, 1));
+		fields.add(new JTIntField("a", a, 1, 15, 1));
+		fields.add(new JTIntField("b", b, 1, 15, 1));
 	}
 
 	@Override
