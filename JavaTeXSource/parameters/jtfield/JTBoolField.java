@@ -6,6 +6,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import parameters.JTField;
+
 /**
  * JTField implemented for boolean input fields. Uses a check button to capture
  * input from the user.

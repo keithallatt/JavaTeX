@@ -18,7 +18,7 @@ import javax.swing.border.TitledBorder;
 import javatex.JTProblemFrame;
 
 public class JTPresetEditing extends JPanel {
-	JTUserInterface parentUI;
+	private JTUserInterface parentUI;
 	private JTProblemFrame currentProblemFrame;
 
 	public JTPresetEditing(JTUserInterface parent, JTProblemFrame defaultProblemFrame) {

@@ -6,7 +6,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 import javatex.JTProblemFrame;
-import parameters.jtfield.JTField;
+import parameters.JTField;
 import parameters.jtfield.JTIntField;
 import parameters.jthyper.JTHyperParameter;
 import parameters.jthyper.JTHyperParameterListener;

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 
 import jtUI.JTUIErrorDialog;
-import parameters.jtfield.JTField;
+import parameters.JTField;
 
 public class JTHyperParameterListener implements ActionListener {
 	private JTFieldDictionary<JTField<?>> fieldDictionary;

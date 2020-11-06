@@ -8,7 +8,7 @@ import javatex.JTProblemFrame;
 import javatex.JTSnippet;
 import javatex.envrn.Align;
 import javatex.envrn.Paragraph;
-import parameters.jtfield.JTField;
+import parameters.JTField;
 import parameters.jtfield.JTIntField;
 
 /**

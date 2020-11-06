@@ -8,6 +8,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import parameters.JTField;
+
 /**
  * JTField implemented for integer input fields. Uses a spinner object to
  * capture input from the user.

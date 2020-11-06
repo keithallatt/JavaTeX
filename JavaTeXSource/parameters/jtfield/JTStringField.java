@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import parameters.JTField;
+
 /**
  * JTField implemented for text input fields. Uses a text field to capture input
  * from the user.
@@ -15,7 +17,7 @@ import javax.swing.JTextField;
  *
  */
 public class JTStringField extends JTField<String> {
-	JTextField textField = null;
+	private JTextField textField = null;
 
 	public JTStringField(String fn) {
 		super(fn, "");

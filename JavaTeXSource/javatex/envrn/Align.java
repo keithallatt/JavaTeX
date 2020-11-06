@@ -15,13 +15,13 @@ import javatex.JTSnippet;
  *
  */
 public class Align extends JTSnippet {
-	AlignAt alignment;
+	private AlignAt alignment;
 
-	String alignmentToken = "=";
+	private String alignmentToken = "=";
 
 	private boolean eqno = true;
 
-	ArrayList<String> equations;
+	private ArrayList<String> equations;
 
 	public Align() {
 		// this houses math environments but is not itself one.

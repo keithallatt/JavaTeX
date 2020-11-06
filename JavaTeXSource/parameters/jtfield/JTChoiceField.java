@@ -6,6 +6,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import parameters.JTField;
+
 /**
  * JTField implemented for a choice or decision. Uses radio buttons to capture
  * input from the user.

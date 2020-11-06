@@ -11,7 +11,7 @@ import javax.swing.border.TitledBorder;
 import javatex.JTDocument;
 
 public class JTDocumentEditing extends JPanel {
-	JTUserInterface parentUI;
+	private JTUserInterface parentUI;
 
 	public JTDocumentEditing(JTUserInterface parent) {
 		parentUI = parent;

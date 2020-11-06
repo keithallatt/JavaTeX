@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import jtUI.JTPreviewFiles;
 import jtUI.JTUserInterface;
-import parameters.jtfield.JTField;
+import parameters.JTField;
 
 /**
  * Container for a set of problem sets or snippets. This object will contain a
@@ -33,8 +33,8 @@ public class JTDocument extends JTSnippet {
 	 * Has access to subSnippets and TeXCode, just needs specific lists for specific
 	 * cases. Such as imports / document class.
 	 */
-	DocumentClass docClass;
-	JTPackage[] dependencies;
+	private DocumentClass docClass;
+	private JTPackage[] dependencies;
 
 	/**
 	 * Generate a blank document.

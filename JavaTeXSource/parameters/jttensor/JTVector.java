@@ -11,7 +11,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import parameters.jtfield.JTField;
+import parameters.JTField;
 import parameters.jthyper.JTHyperParameter;
 
 /**
@@ -32,10 +32,7 @@ public class JTVector extends JTField<Double[]> {
 
 	public JTVector(String fn, Double... ov) {
 		super(fn, ov);
-
-		spinners = new JSpinner[] {
-
-		};
+		spinners = new JSpinner[] {};
 	}
 
 	@Override

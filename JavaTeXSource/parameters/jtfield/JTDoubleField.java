@@ -8,6 +8,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import parameters.JTField;
+
 /**
  * JTField implemented for floating point decimal input fields. Uses a text
  * field to capture input from the user. (Input is then parsed into a double).

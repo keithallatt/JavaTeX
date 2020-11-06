@@ -21,7 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
 public class JTUIErrorDialog extends RuntimeException {
-	URI uri;
+	private URI uri;
 
 	public JTUIErrorDialog(JComponent parent, String name, Throwable error) {
 		super(name, error);

@@ -1,4 +1,4 @@
-package parameters.jtfield;
+package parameters;
 
 import java.awt.Dimension;
 
