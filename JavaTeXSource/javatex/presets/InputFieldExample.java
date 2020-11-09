@@ -7,10 +7,9 @@ import javax.swing.JPanel;
 
 import javatex.JTProblemFrame;
 import parameters.JTField;
-import parameters.jtfield.JTIntField;
 import parameters.jthyper.JTHyperParameter;
 import parameters.jthyper.JTHyperParameterListener;
-import parameters.jttensor.JTVector;
+import parameters.jttensor.JTMatrix;
 
 public class InputFieldExample extends JTProblemFrame {
 
@@ -21,18 +20,17 @@ public class InputFieldExample extends JTProblemFrame {
 		JTHyperParameter n = new JTHyperParameter("n", 1);
 		
 		hyperparameters.add(n);
-		
-		fields.add(new JTIntField("Number", 2, 1, 100, 1));
 
-		JTVector vec = new JTVector("Vector", 1.0);
-
-		vec.attachHyperParameter(n);
+		JTMatrix mat = new JTMatrix("matrix", new Double[][] {});
+			
+		mat.attachHyperParameterWidth(n);
+		mat.attachHyperParameterHeight(n);
 		
 		// connect n to vec
 		n.setHyperListener(hyperListener);
-		hyperListener.link(n, vec);
+		hyperListener.link(n, mat);
 		
-		fields.add(vec);
+		fields.add(mat);
 
 	}
 

@@ -11,6 +11,10 @@
 	{
 		"name" : "Input Examples",
 		"classpath" : "javatex.presets.InputFieldExample"
+	},
+	{
+		"name" : "Align Environment",
+		"classpath" : "javatex.presets.AlignEnvironment"
 	}
 	]
 }

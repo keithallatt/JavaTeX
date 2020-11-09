@@ -19,6 +19,8 @@ import parameters.jtfield.JTIntField;
  *
  */
 public final class JTHyperParameter extends JTIntField {
+	
+	private int min = 1;
 
 	public JTHyperParameter(String fn, Integer ov) {
 		// JTInt field with a minimum value of 0 (0 dimensionality)
@@ -44,6 +46,12 @@ public final class JTHyperParameter extends JTIntField {
 		
 		// set object value on change.
 		objectValue = (Integer) spinner.getValue();
+		
+		// if object value goes beyond min
+		if (objectValue < min) {
+			spinner.setValue(min);
+			return;
+		}
 
 		if (hyperListener != null) hyperListener.actionPerformed(change);
 	}

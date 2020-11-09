@@ -1,5 +1,6 @@
-package parameters.jttensor;
+ package parameters.jttensor;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -10,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.plaf.basic.BasicSpinnerUI;
 
-import parameters.JTField;
 import parameters.jthyper.JTHyperParameter;
 
 /**
@@ -21,7 +22,7 @@ import parameters.jthyper.JTHyperParameter;
  * @version 2020-11-05
  *
  */
-public class JTVector extends JTField<Double[]> {
+public class JTVector extends JTGeneralizedVector<Double> {
 	private JTHyperParameter dimensionality;
 
 	private JPanel inputContainers;
@@ -55,6 +56,24 @@ public class JTVector extends JTField<Double[]> {
 		return inputFields;
 
 	}
+	
+	@SuppressWarnings("static-method")
+	public void hideSpinnerArrow(JSpinner spinner) {
+		Dimension d = spinner.getPreferredSize();
+		d.width = 30;
+		spinner.setUI(new BasicSpinnerUI() {
+			@Override
+			protected Component createNextButton() {
+				return null;
+			}
+
+			@Override
+			protected Component createPreviousButton() {
+				return null;
+			}
+		});
+		spinner.setPreferredSize(d);
+	}
 
 	private JPanel generateVectorFields() {
 		if (inputContainers == null) inputContainers = new JPanel();
@@ -85,6 +104,8 @@ public class JTVector extends JTField<Double[]> {
 
 			panelHeight += 5 + height;
 
+			hideSpinnerArrow(spinner);
+			
 			newspinners[i] = spinner;
 
 		}

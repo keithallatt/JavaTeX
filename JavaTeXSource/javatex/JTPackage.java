@@ -58,4 +58,9 @@ public class JTPackage extends JTSnippet {
 		return "\\usepackage[" + String.join(",", options) + "]{"
 				+ packageName + "}";
 	}
+	
+	@Override
+	public String toString() {
+		return packageName;
+	}
 }
