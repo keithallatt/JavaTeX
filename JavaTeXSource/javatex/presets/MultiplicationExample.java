@@ -48,6 +48,8 @@ public final class MultiplicationExample extends JTProblemFrame {
 
 	@Override
 	public String convert() {
+		clearSnippets();
+		
 		int a = 0;
 		int b = 0;
 

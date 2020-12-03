@@ -13,6 +13,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 
+import mathematicalObjects.Matrix;
 import parameters.JTField;
 import parameters.jthyper.JTHyperParameter;
 
@@ -79,13 +80,16 @@ public class JTMatrix extends JTField<Double[][]> {
 		int matWidth = matrixWidth.getObjectValue();
 		int matHeight = matrixHeight.getObjectValue();
 
-		JSpinner[][] newspinners = new JSpinner[matWidth][matHeight];
+		JSpinner[][] newspinners = new JSpinner[matHeight][matWidth];
 
 		int panelHeight = 0;
 		int height = labelHeight + 5;
 
+		int spinnerInner = 0;
+		if (spinners.length > 0) spinnerInner = spinners[0].length;
+
 		for (int i = 0; i < Math.min(spinners.length, matHeight); i++) {
-			for (int j = 0; j < Math.min(spinners[0].length, matWidth); j++)
+			for (int j = 0; j < Math.min(spinnerInner, matWidth); j++)
 				newspinners[i][j] = spinners[i][j];
 			panelHeight += 5 + height;
 		}
@@ -133,13 +137,17 @@ public class JTMatrix extends JTField<Double[][]> {
 	public Double[][] generateObjectFromInput() {
 		int w = matrixWidth.getObjectValue();
 		int h = matrixHeight.getObjectValue();
-		Double[][] list = new Double[w][h];
+		Double[][] list = new Double[h][w];
 
-		for (int i = 0; i < w; i++)
-			for (int j = 0; j < h; j++)
+		for (int i = 0; i < h; i++)
+			for (int j = 0; j < w; j++)
 				list[i][j] = (Double) spinners[i][j].getValue();
 
 		return list;
+	}
+
+	public Matrix generateMatrixFromInput() {
+		return new Matrix(generateObjectFromInput());
 	}
 
 	public void attachHyperParameterWidth(JTHyperParameter n) {
@@ -187,13 +195,12 @@ public class JTMatrix extends JTField<Double[][]> {
 				repr += Arrays.toString(sublist) + "\n";
 			}
 			numLines++;
-			if (numLines > 4)
-				break;
+			if (numLines > 4) break;
 		}
 		repr = repr.trim();
-		
+
 		repr = "<html>" + String.join("<br />", repr.split("\n")) + "</html>";
-		
+
 		return repr;
 	}
 }

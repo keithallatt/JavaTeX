@@ -104,7 +104,6 @@ public class JTDocument extends JTSnippet {
 
 			String htmlName = "<html>" + ss.getClass();
 			for (JTField<?> f : pf.fields) {
-
 				htmlName += "<br/>" + f;
 			}
 			htmlName += "</html>";

@@ -29,7 +29,6 @@ public class JavaTeX {
 			 * if any errors occur that aren't caught properly, they'll come here since
 			 * all code except variable declaration happens inside.
 			 */
-
 			if (jtui == null)
 				throw new JTUIErrorDialog(null, "UI not initialized Exception", e);
 			throw new JTUIErrorDialog(jtui, "Uncaught Exception", e);
